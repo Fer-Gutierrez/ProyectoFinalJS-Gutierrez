@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Cotizador Movilidad</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;0,900;1,300&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <div class="container navbar">
+        <a href="./index.html" class="textoLogo">
+          <img src="./img/Ya2.png" alt="Logo" />
+          CotizaloYa
+        </a>
+        <button class="menuHamburguer">Icon</button>
+        <div class="links">
+          <ul>
+            <li>
+              <a class="navitem" href="./index.html">Atomotores</a>
+            </li>
+            <li><a class="navitem" href="./electronica.html">Electronica</a></li>
+            <li><a class="navitem activo" href="./movilidad.html">Movilidad</a></li>
+          </ul>
+        </div>
+      </div>
+    </header>
+    <main class="container">
+      <section class="presentacion">
+        <div class="presentacion_principal">
+          <img class="presentacion_img" src="./img/monopatin.jpg" alt="">
+          <h1>Animate a dar un paseo</h1>
+          <p>
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione
+            porro debitis beatae nam reprehenderit explicabo.
+          </p>
+          <a class="cta" href="">Cotizalo YA</a>
+        </div>
+      </section>
+      <section class="informacion">
+        <h2>Detalle de la cobertura</h2>
+        <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum veritatis, tempore, repudiandae neque aperiam, voluptas quis quaerat dolorem minus ut soluta! Necessitatibus nihil ipsum animi tenetur, cupiditate deleniti excepturi maxime consequatur. Qui incidunt, a quos possimus ab temporibus ut, molestias facere et at assumenda quis impedit dignissimos praesentium repellendus eveniet?</p>
+      </section>
+      <section class="informacion">
+        <h2>Cotizalo</h2>
+        <form class="cotizar" action="">
+          <div class="cotizar-datos">
+              <label for="marcaMov">Marca Movilidad:</label>
+              <select name="marcaMov" id="marcaMov" class="cb">
+                <option value="1">SLP</option>
+                <option value="2">Venzo</option>
+                <option value="3">Giant</option>
+                <option value="4">Delma</option>
+              </select>
+              <label for="sumaMov">Suma Asegurada:</label>
+              <input type="number" name="sumaMov" id="sumaMov"/> 
+          </div>
+          <button id="btn-cotizar">Cotizar</button>
+
+          </form>
+      </section>
+
+
+
+    </main>
+    <footer class="container"></footer>
+
+    <!-- SCRIPT miarchivo.js -->
+    <script src="./miarchivo_mov.js"></script>
+  </body>
+</html>
