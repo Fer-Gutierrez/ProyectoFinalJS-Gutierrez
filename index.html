@@ -58,28 +58,37 @@
           impedit dignissimos praesentium repellendus eveniet?
         </p>
       </section>
-      <section class="informacion">
+      <section id="#cotizador" class="informacion">
         <h2>Cotizalo</h2>
-        <form class="cotizar" action="">
+        <form id="form-cotizar" class="cotizar" action="">
           <div class="cotizar-datos">
+            <div class="contenedor-datos">
               <label for="marcaVh">Vehiculo:</label>
-              <select name="marcaVh" id="marcaVh" class="cb">
-                <option value="1">Volkswagen</option>
-                <option value="2">Fiat</option>
-                <option value="3">Honda</option>
-                <option value="4">Toyota</option>
-                <option value="5">Peugeot</option>
-              </select>
+              <select name="marcaVh" id="marcaVh" class="cb" required></select>
+            </div>
+            <div class="contenedor-datos">
               <label for="modeloVh">Modelo:</label>
-              <select name="modeloVh" id="modeloVh" class="cb"></select>
+              <select name="modeloVh" id="modeloVh" class="cb" required></select>
+            </div>
+            <div class="contenedor-datos">
               <label for="sumaVh">Suma Asegurada:</label>
-              <input type="number" name="sumaVh" id="sumaVh"/>
+              <input type="text" name="sumaVh" id="sumaVh" required/>
+            </div>
+            <div class="contenedor-datos">
               <label for="anioVh">Año:</label>
-              <input type="number" name="anioVh" id="anioVh"/>      
+              <input type="text" pattern="[0-9]{4}" maxlength="4" name="anioVh" id="anioVh" required title="Se requiere el año (4 números)"/>
+            </div>
+            <div class="contenedor-datos">
+              <label for="tieneGas">Tiene Gas:</label>
+              <select name="tieneGas" id="tieneGas" class="cb" required>
+                <option value="1">No</option>
+                <option value="2">Sí  </option>
+              </select>
+            </div>
           </div>
-          <button id="btn-cotizar">Cotizar</button>
+          <input id="btn-cotizar" type="submit" value="Cotizar">
+        </form>
 
-          </form>
       </section>
     </main>
     <footer class="container"></footer>

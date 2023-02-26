@@ -1,4 +1,3 @@
-
 class Vehiculo {
   constructor(marca, modelo, anio, sumaAsegurada, tieneGas) {
     this.marca = marca;
@@ -38,138 +37,133 @@ class Vehiculo {
   }
 }
 
-const listaMarcas = [
-  { marca: "Volkswagen", modelo: "Gol", tasa: 1.5 },
-  { marca: "Volkswagen", modelo: "Polo", tasa: 1.5 },
-  { marca: "Volkswagen", modelo: "Saveiro", tasa: 1.5 },
-  { marca: "Volkswagen", modelo: "Amarok", tasa: 1.5 },
-  { marca: "Fiat", modelo: "Argo", tasa: 2 },
-  { marca: "Fiat", modelo: "Palio", tasa: 2 },
-  { marca: "Fiat", modelo: "Cronos", tasa: 2 },
-  { marca: "Fiat", modelo: "Punto", tasa: 2 },
-  { marca: "Honda", modelo: "Fit", tasa: 0.8 },
-  { marca: "Honda", modelo: "Civic", tasa: 0.8 },
-  { marca: "Honda", modelo: "City", tasa: 0.8 },
-  { marca: "Honda", modelo: "CRV", tasa: 0.8 },
-  { marca: "Toyota", modelo: "Corolla", tasa: 1 },
-  { marca: "Toyota", modelo: "Yaris", tasa: 1 },
-  { marca: "Toyota", modelo: "Hilux", tasa: 1 },
-  { marca: "Toyota", modelo: "Etios", tasa: 1 },
-  { marca: "Toyota", modelo: "SW4", tasa: 1 },
-  { marca: "Peugeot", modelo: "207", tasa: 2.5 },
-  { marca: "Peugeot", modelo: "208", tasa: 2.5 },
-  { marca: "Peugeot", modelo: "308", tasa: 2.5 },
-  { marca: "Peugeot", modelo: "408", tasa: 2.5 },
+const listaModelos = [
+  { id: 1, marca: "Volkswagen", modelo: "Gol", tasaBasica: 1.2 },
+  { id: 2, marca: "Volkswagen", modelo: "Polo", tasaBasica: 1.2 },
+  { id: 3, marca: "Volkswagen", modelo: "Saveiro", tasaBasica: 1.2 },
+  { id: 4, marca: "Volkswagen", modelo: "Amarok", tasaBasica: 12 },
+  { id: 5, marca: "Fiat", modelo: "Argo", tasaBasica: 1.4 },
+  { id: 6, marca: "Fiat", modelo: "Palio", tasaBasica: 1.4 },
+  { id: 7, marca: "Fiat", modelo: "Cronos", tasaBasica: 1.4 },
+  { id: 8, marca: "Fiat", modelo: "Punto", tasaBasica: 1.4 },
+  { id: 9, marca: "Honda", modelo: "Fit", tasaBasica: 0.8 },
+  { id: 10, marca: "Honda", modelo: "Civic", tasaBasica: 0.8 },
+  { id: 11, marca: "Honda", modelo: "City", tasaBasica: 0.8 },
+  { id: 12, marca: "Honda", modelo: "CRV", tasaBasica: 0.8 },
+  { id: 13, marca: "Toyota", modelo: "Corolla", tasaBasica: 1 },
+  { id: 14, marca: "Toyota", modelo: "Yaris", tasaBasica: 1 },
+  { id: 15, marca: "Toyota", modelo: "Hilux", tasaBasica: 1 },
+  { id: 16, marca: "Toyota", modelo: "Etios", tasaBasica: 1 },
+  { id: 17, marca: "Toyota", modelo: "SW4", tasaBasica: 1 },
+  { id: 18, marca: "Peugeot", modelo: "207", tasaBasica: 1.5 },
+  { id: 19, marca: "Peugeot", modelo: "208", tasaBasica: 1.5 },
+  { id: 20, marca: "Peugeot", modelo: "308", tasaBasica: 1.5 },
+  { id: 21, marca: "Peugeot", modelo: "408", tasaBasica: 1.5 },
 ];
 
-const cantvehiculos = SolicitarDato();
-if (cantvehiculos !== null) {
-  cotizar(cantvehiculos);
+const listaPlanes= [
+  {id:1 ,nombre: "Tercero Basico", factorRecargo:1},
+  {id:2 ,nombre: "Tercero Completo", factorRecargo:1.1},
+  {id:3 ,nombre: "Todo Riesgo", factorRecargo:1.2}
+];
+
+const listaCoberturas = [
+  {id: 1, cobertura:"RC contra terceros Parcial y Total", planes:[1,2,3]},
+  {id: 2, cobertura:"Servicios de Grúa las 24 hs", planes:[1,2,3]},
+  {id: 3, cobertura:"Incendio Total", planes:[1,2,3]},
+  {id: 4, cobertura:"Incendio Parcial", planes:[2,3]},
+  {id: 5, cobertura:"Robo Total", planes:[1,2,3]},
+  {id: 6, cobertura:"Robo Parcial", planes:[2,3]},
+  {id: 7, cobertura:"Accidente Total", planes:[3]},
+  {id: 8, cobertura:"Cristales Parcial y Total", planes:[2,3]},
+  {id: 9, cobertura:"Granizo Parcial y Total", planes:[2,3]},
+  {id: 10, cobertura:"Parabrisas Parcial y Total", planes:[2,3]},
+  {id: 11, cobertura:"Rotura de Cerraduras Sin Límite y Sin Deducible", planes:[3]},
+  {id: 12, cobertura:"Accidentes Personales", planes:[3]},
+  {id: 13, cobertura:"Extensión de Cobertura a Países Limítrofes", planes:[1,2,3]},
+];
+
+
+//GENERO LA LISTA DE MARCAS SIN DUPLICADOS
+let marcas = listaModelos.map(valor => valor.marca);
+const listaMarcas = marcas.filter((item, index) => {
+  return marcas.indexOf(item) === index;
+});
+
+// ACTUALIZO CB VEHICULOS
+const selectMarca = document.querySelector("#marcaVh");
+selectMarca.innerHTML = `<option selected="true" disabled="disabled">Seleccione una marca</option>`;
+for (vehiculo of listaMarcas) {
+  selectMarca.innerHTML += `<option value="${vehiculo.index}">${vehiculo}</option>`;
 }
 
-function SolicitarDato() {
-  let cantVehiculos = prompt(
-    'Ingrese la cantidad de vehiculos a cotizar\nPara salir escriba: "SALIR" '
-  );
+// ACTUALIZO CB MODELOS
+const selectModelo = document.querySelector("#modeloVh");
+selectModelo.innerHTML = `<option selected="true" disabled="disabled">Seleccione una marca</option>`;
+selectMarca.addEventListener("change", actualizarSelectModelo);
 
-  if (cantVehiculos.toLowerCase() === "salir") {
-    return null;
-  } else if (isNaN(parseInt(cantVehiculos))) {
-    alert("Debe ingresar un valor numérico, vuelva a intentarlo");
-    SolicitarDato();
-  } else if (parseInt(cantVehiculos === 0)) {
-    alert("Ingresó 0, vuelva a cargar la pagina para intentarlo");
-    return null;
-  } else {
-    return parseInt(cantVehiculos);
+function actualizarSelectModelo() {
+  let marcaSeleccionada = selectMarca.options[selectMarca.selectedIndex].text;
+  selectModelo.innerHTML = `<option selected="true" disabled="disabled">Seleccione un modelo</option>`;
+  let listaModelosFiltrados = listaModelos.filter(
+    valor => valor.marca.toLowerCase() === marcaSeleccionada.toLowerCase()
+  );
+  for (modelo of listaModelosFiltrados) {
+    selectModelo.innerHTML += `<option value="${modelo.index}">${modelo.modelo}</option>`;
   }
 }
 
+let btnCotizar = document.querySelector("#btn-cotizar");
+btnCotizar.addEventListener("submit",cotizar)
 
-function cotizar(cant) {
-  const listaCot = new Array(0);
 
-  for (let i = 0; i < cant; i++) {
-    let marcaVh = prompt(`Ingrese la marca del vehículo ${i + 1}`);
-    let modeloVh;
-    let tieneGasVh;
-    let anioVh;
-    let sumaVh;
-    let tasaVh;
+//SUMAVH
+function formatoMoneda(valor){
+  const formatter = new  Intl.NumberFormat('es-AR',{
+    style: 'currency',
+    minimumFractionDigits: 0,
+    currency: 'ars'  
+  })
+  return formatter.format(valor)
+}
 
-    let marcaEncontrada = listaMarcas.some(
-      valor => valor.marca.toLowerCase() === marcaVh.toLowerCase()
-    );
-    if (marcaEncontrada === false) {
-      let arraySoloMarcas = listaMarcas.map(valor => valor.marca);
-      let marcasSinDuplicados = arraySoloMarcas.filter((item, index) => {
-        return arraySoloMarcas.indexOf(item) === index;
-      });
+let inputSumaVh = document.querySelector("#sumaVh")
+inputSumaVh.addEventListener("click", () =>{
+  inputSumaVh.select()
+})
+inputSumaVh.addEventListener("change",cambiarFormatoSumaVh)
+function cambiarFormatoSumaVh(){
+  let valor = inputSumaVh.value
+  if(isNaN(valor)){
+    valor = valor.replace(/[a-zA-Z .,$]/g,"")
+  }
+  inputSumaVh.value = formatoMoneda(Math.ceil(valor))
+};
+function quitarFormato(valor){
+  if(isNaN(valor)){
+    valor = valor.replace(/[a-zA-Z ,.$]/g,"")
+  }
+  return Number(valor.trim())
+}
 
-      let stringMarcas = "";
-      marcasSinDuplicados.forEach(
-        valor => (stringMarcas = `${stringMarcas}\n - ${valor}`)
-      );
+//SUBMIT COTIZAR
+formCotizar = document.querySelector("#form-cotizar")
+formCotizar.addEventListener("submit",cotizar)
 
-      alert(
-        `No contamos con el seguro del vehiculo ingresado.\nFavor de ingresar una de las siguientes marcas ${stringMarcas}`
-      );
+function cotizar(e) {
+  e.preventDefault();
+  let sumaVh = quitarFormato(inputSumaVh.value);
+  let anioVh = Number(document.querySelector("#anioVh").value);
 
-      i = i - 1;
-      continue;
-    }
 
-    modeloVh = prompt(`Ingrese el modelo del vehículo ${i + 1}`);
-    let listaMarcaFiltada = listaMarcas.filter(valor => valor.marca.toLowerCase() === marcaVh.toLowerCase()); 
-    let modeloEncontrado = listaMarcaFiltada.some(
-      valor => valor.modelo.toLowerCase() === modeloVh.toLowerCase()
-    );
+  
 
-    if(modeloEncontrado === false){
-      let stringModelos = "";
-      listaMarcaFiltada.forEach(
-        valor => (stringModelos = `${stringModelos}\n - ${valor.modelo}`)
-      );
-
-      alert(
-        `No contamos con el seguro del modelo ingresado.\nFavor de ingresar una de los siguientes modelos de la marca ${marcaVh}: ${stringModelos}`
-      );
-
-      i = i - 1;
-      continue;
-    }
-
-    let tieneGas = prompt(
-      `Responda Si o No.\n¿Suvehículo tiene Equipo de Gas?`
-    );
-    if (tieneGas.toLowerCase() !== "no" && tieneGas.toLowerCase() !== "si") {
-      alert(`Debe ingresar Si o No.\nFavor de intentarlo nuevamente.`);
-      i = i - 1;
-      continue;
-    } else if (tieneGas === "si") {
-      tieneGasVh = true;
-    } else if (tieneGas === "no") {
-      tieneGasVh = false;
-    }
-
-    sumaVh = Number(prompt(`Ingrese el precio del vehículo ${i + 1}`));
-    if (isNaN(sumaVh)) {
-      alert("Debe ingresar un valor numérico. Intetelo nuevamente.");
-      i = i - 1;
-      continue;
-    }
-
-    anioVh = parseInt(prompt(`Ingrese el año del vehículo ${i + 1}`));
-    if (isNaN(anioVh)) {
-      alert("Debe ingresar un valor numérico. Intetelo nuevamente.");
-      i = i - 1;
-      continue;
-    } else if (anioVh < 2000) {
-      alert(
-        `No aseguramos vehículos antesriores al año 2000.\nVuelva a cargar la página para internarlo`
-      );
-      continue;
-    }
+  if(isNaN(sumaVh) || isNaN(anioVh)){
+    alert("No es posible cotizar ya que los valores de Suma Asegurada y Año ingresados no son numéricos")
+  }else{
+    //MOSTRAMOS UN NUEVO DIV CON LAS COBERTURAS Y PLANES DISPONIBLES
+  }
+ 
 
     let vehiculo = new Vehiculo(marcaVh, modeloVh, anioVh, sumaVh, tieneGasVh);
     let recargoAnio = vehiculo.obtenerRecargoAnio();
@@ -179,7 +173,7 @@ function cotizar(cant) {
       ((vehiculo.sumaAsegurada * tasaVh) / 1000) * recargoAnio * recargoGas;
 
     listaCot.push({ vehiculo, costoSeguro });
-  }
+  
 
   if (listaCot.length > 0) {
     let stringCosto = "";
