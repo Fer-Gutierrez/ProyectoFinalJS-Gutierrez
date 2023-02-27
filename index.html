@@ -5,19 +5,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cotizador</title>
-    <link rel="stylesheet" href="./styles.css" />
-
+    <!-- GOOGLE FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,700;0,900;1,300&display=swap"
       rel="stylesheet"
     />
+    <!-- BOOSTRAP -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65"
+      crossorigin="anonymous"
+    />
+    <!-- CSS -->
+    <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header>
+    <header id="hero" class="bgc-transparent">
       <div class="container navbar">
-        <a href="./index.html" class="textoLogo">
+        <a id="logoNav" href="./index.html" class="textoLogo">
           <img src="./img/Ya2.png" alt="Logo" />
           CotizaloYa
         </a>
@@ -44,11 +52,11 @@
             Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione
             porro debitis beatae nam reprehenderit explicabo.
           </p>
-          <a class="cta" href="">Cotizalo YA</a>
+          <a class="cta" href="#cotizador">Cotizalo YA</a>
         </div>
       </section>
       <section class="informacion">
-        <h2>Detalle de la cobertura</h2>
+        <h2 class="titulo">Detalle de la cobertura</h2>
         <p>
           Lorem, ipsum dolor sit amet consectetur adipisicing elit. Rerum
           veritatis, tempore, repudiandae neque aperiam, voluptas quis quaerat
@@ -58,8 +66,8 @@
           impedit dignissimos praesentium repellendus eveniet?
         </p>
       </section>
-      <section id="#cotizador" class="informacion">
-        <h2>Cotizalo</h2>
+      <section id="cotizador" class="informacion">
+        <h2 class="titulo">Cotizalo</h2>
         <form id="form-cotizar" class="cotizar" action="">
           <div class="cotizar-datos">
             <div class="contenedor-datos">
@@ -68,30 +76,123 @@
             </div>
             <div class="contenedor-datos">
               <label for="modeloVh">Modelo:</label>
-              <select name="modeloVh" id="modeloVh" class="cb" required></select>
+              <select
+                name="modeloVh"
+                id="modeloVh"
+                class="cb"
+                required
+              ></select>
             </div>
             <div class="contenedor-datos">
               <label for="sumaVh">Suma Asegurada:</label>
-              <input type="text" name="sumaVh" id="sumaVh" required/>
+              <input type="text" name="sumaVh" id="sumaVh" required />
             </div>
             <div class="contenedor-datos">
               <label for="anioVh">Año:</label>
-              <input type="text" pattern="[0-9]{4}" maxlength="4" name="anioVh" id="anioVh" required title="Se requiere el año (4 números)"/>
+              <input
+                type="text"
+                pattern="[0-9]{4}"
+                maxlength="4"
+                name="anioVh"
+                id="anioVh"
+                required
+                title="Se requiere el año (4 números)"
+              />
             </div>
             <div class="contenedor-datos">
               <label for="tieneGas">Tiene Gas:</label>
               <select name="tieneGas" id="tieneGas" class="cb" required>
                 <option value="1">No</option>
-                <option value="2">Sí  </option>
+                <option value="2">Si</option>
               </select>
             </div>
           </div>
-          <input id="btn-cotizar" type="submit" value="Cotizar">
+          <input id="btn-cotizar" type="submit" value="Cotizar" />
         </form>
-
       </section>
     </main>
-    <footer class="container"></footer>
+    <footer
+      class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top container"
+    >
+      <div class="col-md-4 d-flex align-items-center">
+        <img
+          class="mb-3 me-2 mb-md-0 lh-1 img-logo"
+          src="./img/Ya2.png"
+          alt="Logo cotizaloya"
+        />
+        <span class="mb-3 mb-md-0 text-muted">© 2022 CotizaloYa</span>
+      </div>
+
+      <ul class="nav col-md-4 justify-content-end list-unstyled d-flex">
+        <li class="ms-3">
+          <a
+            class="text-muted"
+            href="https://www.facebook.com/profile.php?id=1843429582"
+            target="_blank"
+            aria-label="ir a facebook"
+            ><img
+              class="img-redsocial"
+              src="./img/facebook.png"
+              alt="logo facebook"
+          /></a>
+        </li>
+        <li class="ms-3">
+          <a
+            class="text-muted"
+            href="https://www.instagram.com/fergutierrezzz/"
+            target="_blank"
+            aria-label="ir a instagram"
+            ><img
+              class="img-redsocial"
+              src="./img/instagram.png"
+              alt="logo instagram"
+          /></a>
+        </li>
+        <li class="ms-3">
+          <a
+            class="text-muted"
+            href="https://www.linkedin.com/in/fernando-gutierrez-672b16156/"
+            target="_blank"
+            aria-label="ir a linkedin"
+            ><img
+              class="img-redsocial"
+              src="./img/linkedin.png"
+              alt="logo linkedin"
+          /></a>
+        </li>
+        <li class="ms-3">
+          <a
+            class="text-muted"
+            href="https://wa.me/5493492625268"
+            target="_blank"
+            aria-label="ir a whatsapp"
+            ><img
+              class="img-redsocial"
+              src="./img/whatsapp.png"
+              alt="logo whatsapp"
+          /></a>
+        </li>
+      </ul>
+    </footer>
+
+    <!-- BOOSTRAP -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- WOW JS -->
+    <script src="https://wowjs.uk/dist/wow.min.js"></script>
+    <script>
+      new WOW().init();
+    </script>
+
+    <!-- FONTAWESOME -->
+    <script
+      src="https://kit.fontawesome.com/a1fc800b04.js"
+      crossorigin="anonymous"
+    ></script>
 
     <!-- SCRIPT miarchivo.js -->
     <script src="./miarchivo.js"></script>
