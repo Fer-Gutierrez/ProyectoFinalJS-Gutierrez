@@ -63,23 +63,17 @@ class Cotizacion {
 
   agregarLS() {
     //Verificamos si existe un LS
-    let misCotizaciones = localStorage.getItem("misCotizaciones") || [];
-    // let misCotizaciones;
-    // let misCotizacionesLS = localStorage.getItem("misCotizaciones");
-
-    // if (misCotizacionesLS) {
-    //   misCotizaciones = JSON.parse(misCotizacionesLS);
-    // } else {
-    //   misCotizaciones = [];
-    // }
-
+    let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones")) || [];
+  
     //agregar al LS
     let cotizacion = this;
     misCotizaciones.push(cotizacion);
     localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
     alert("Cotización agregado con éxito a MisCotizaciones");
+    actualizarCarrito()
   }
 }
+
 
 //FUNCIONES
 function formatoMoneda(valor) {
@@ -195,11 +189,13 @@ inputSumaVh.addEventListener("click", () => {
 });
 inputSumaVh.addEventListener("change", cambiarFormatoSumaVh);
 function cambiarFormatoSumaVh() {
-  let valor = inputSumaVh.value;
-  if (isNaN(valor)) {
-    valor = valor.replace(/[a-zA-Z .,$]/g, "");
-  }
-  inputSumaVh.value = formatoMoneda(Math.ceil(valor));
+  let valor = quitarFormatoMoneda(inputSumaVh.value);
+  if (isNaN(valor) || valor <= 0){
+    inputSumaVh.value = ""
+    alert("Suma asegurada deben ser numeros enteros positivos")
+  } else{
+    inputSumaVh.value = formatoMoneda(Math.ceil(valor));
+  }   
 }
 
 //SUBMIT COTIZAR
@@ -211,11 +207,8 @@ function cotizar(e) {
   let modeloVh = selectModelo.options[selectModelo.selectedIndex].text;
   let sumaVh = quitarFormatoMoneda(inputSumaVh.value);
   let anioVh = Number(selectAnio.value);
-  let tieneGasVh = false;
-  if (selectGas.options[selectGas.selectedIndex].text.toLowerCase() === "si") {
-    tieneGasVh = true;
-  }
-
+  let tieneGasVh = selectGas.options[selectGas.selectedIndex].text.toLowerCase() === "si" ? true : false;
+   
   if (isNaN(sumaVh) || isNaN(anioVh)) {
     alert(
       "No es posible cotizar ya que los valores de Suma Asegurada y Año ingresados no son numéricos"
@@ -229,6 +222,7 @@ function cotizar(e) {
     let costoSeguro =
       ((vehiculo.sumaAsegurada * tasaVh) / 1000) * recargoAnio * recargoGas;
 
+    /** RENDERIZAR **/
     //Div
     let div = document.querySelector("#cotizacion");
     if (div != null) {
@@ -327,13 +321,14 @@ function cotizar(e) {
     seccionCotizador.append(div);
     formCotizar.reset();
 
-    //Agregadp Evento a Boton Contratar
+    //AgregadO Evento a Boton Contratar
     listaPlanes.forEach(plan => {
       let boton = document.querySelector(`#btnContratar${plan.id}`);
       boton.addEventListener("click", () =>
         agregarCotizacion(plan.id, plan.nombre, plan.factorRecargo)
       );
     });
+    
     function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {
       let cotizacion = new Cotizacion(
         "automotores",
@@ -348,6 +343,29 @@ function cotizar(e) {
     //ViewPort hacia Seccion Planes
     let positionDivCotizacion = div.getBoundingClientRect();
     window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
+  }
+}
+
+
+//ACTUALIZACION NUMERITO BOTON CARRITO
+actualizarCarrito()
+function actualizarCarrito(){
+  let numerito = JSON.parse(localStorage.getItem("misCotizaciones"))?.length || 0;
+  numeritoCarrito = document.querySelector("#numeritoCarrito");
+  numeritoCarrito.innerText = numerito;
+}
+
+
+//BOTON CARRITO
+botonCarrito = document.querySelector("#carrito");
+botonCarrito.addEventListener("click", consultarCarrito)
+function consultarCarrito(){
+  let misCotizaciones = (JSON.parse(localStorage.getItem("misCotizaciones")) || []);
+  
+  if(misCotizaciones){
+    alert(`Existen ${misCotizaciones.length} cotizaciones`)
+  }else{
+    alert("No hay cotizaciones")
   }
 }
 

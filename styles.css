@@ -121,6 +121,19 @@ padding: 5px 10px;
   color:chocolate;
 }
 
+#carrito{
+  background-color:#e5e5e5;
+  border: solid 1px #1e1d1d ;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 0 3px;
+}
+
+#carrito i, #carrito span{
+  color: chocolate;
+  font-size: 1.1rem;
+}
+
 main{
   padding-top: 100px;
 }
