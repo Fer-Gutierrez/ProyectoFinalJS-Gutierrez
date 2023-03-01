@@ -9,25 +9,37 @@ class Vehiculo {
   }
 
   obtenerRecargoAnio() {
-    if (this.anio < 2010) {
-      return 2;
-    } else if (this.anio < 2012) {
-      return 1.3;
-    } else if (this.anio < 2016) {
-      return 1.15;
-    } else if (this.anio < 2020) {
-      return 1.07;
-    } else {
-      return 1;
-    }
+    return this.anio < 2010
+      ? 1.5
+      : this.anio < 2012
+      ? 1.3
+      : this.anio < 2016
+      ? 1.15
+      : this.anio < 2020
+      ? 1.07
+      : 1;
+
+    // if (this.anio < 2010) {
+    //   return 1.5;
+    // } else if (this.anio < 2012) {
+    //   return 1.3;
+    // } else if (this.anio < 2016) {
+    //   return 1.15;
+    // } else if (this.anio < 2020) {
+    //   return 1.07;
+    // } else {
+    //   return 1;
+    // }
   }
 
   obtenerRecargoGas() {
-    if (this.tieneGas === true) {
-      return 1.2;
-    } else {
-      return 1;
-    }
+    return this.tieneGas ? 1.2 : 1;
+
+    // if (this.tieneGas){
+    //   return 1.2
+    // }else{
+    //   return 1
+    // }
   }
 
   obtenerTasa() {
@@ -51,13 +63,15 @@ class Cotizacion {
 
   agregarLS() {
     //Verificamos si existe un LS
-    let misCotizaciones;
-    let misCotizacionesLS = localStorage.getItem("misCotizaciones");
-    if (misCotizacionesLS) {
-      misCotizaciones = JSON.parse(misCotizacionesLS);
-    } else {
-      misCotizaciones = [];
-    }
+    let misCotizaciones = localStorage.getItem("misCotizaciones") || [];
+    // let misCotizaciones;
+    // let misCotizacionesLS = localStorage.getItem("misCotizaciones");
+
+    // if (misCotizacionesLS) {
+    //   misCotizaciones = JSON.parse(misCotizacionesLS);
+    // } else {
+    //   misCotizaciones = [];
+    // }
 
     //agregar al LS
     let cotizacion = this;
