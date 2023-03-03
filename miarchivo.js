@@ -64,14 +64,25 @@ class Cotizacion {
   agregarLS() {
     //Verificamos si existe un LS
     let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones")) || [];
-  
+    
     //agregar al LS
     let cotizacion = this;
     misCotizaciones.push(cotizacion);
     localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
-    alert("Cotización agregado con éxito a MisCotizaciones");
     actualizarCarrito()
+    mostrarAlertaIngresoCarrito()
   }
+}
+
+function mostrarAlertaIngresoCarrito(){
+   iziToast.success({
+    // title: 'OK',
+    timeout: 3000,
+    pauseOnHover: false,
+    progressBar: false,
+    transitionIn: "fadeInLeft",
+    message: 'Seguro agregado al carrito',
+});
 }
 
 
@@ -131,7 +142,7 @@ const listaCoberturas = [
   { id: 5, cobertura: "Robo Total", planes: [1, 2, 3] },
   { id: 6, cobertura: "Robo Parcial", planes: [2, 3] },
   { id: 7, cobertura: "Accidente Total", planes: [3] },
-  { id: 8, cobertura: "Cristales Parcial y Total", planes: [2, 3] },
+  { id: 8, cobertura: "Cristales Parcial y Total", planes: [1, 2, 3] },
   { id: 9, cobertura: "Granizo Parcial y Total", planes: [2, 3] },
   { id: 10, cobertura: "Parabrisas Parcial y Total", planes: [2, 3] },
   {
