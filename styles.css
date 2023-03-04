@@ -32,7 +32,7 @@ header{
 .bgc-grey{
 background-color: #fafafa;
 box-shadow: 0px 4px 5px #e5e5e5;
-}
+} 
 
 .container {
   margin: auto;
@@ -80,10 +80,12 @@ padding: 5px 0px;
 .navbar ul li{
 margin: 0 10px;
 padding: 5px 10px;
+display: flex;
 }
 
 .navitem{
   color: rgba(240, 255, 255, 0.847);
+  margin: auto;
 }
 
 .navitem:hover{
@@ -122,13 +124,12 @@ padding: 5px 10px;
 }
 
 #carrito{
-  background-color:#e5e5e5;
-  border: solid 1px #1e1d1d ;
-  border-radius: 5px;
+  background-color: #fafafa;
+  border: none;
+  border-radius: 150%;
   cursor: pointer;
-  padding: 0 3px;
+  padding: 5px;
 }
-
 
 #carrito i, #carrito span{
   color: chocolate;
@@ -360,6 +361,84 @@ td:nth-of-type(4) {
 
 footer small {
   font-size: 0.7rem;
+}
+
+
+
+/* MODAL CARRITO */
+#modal-carrito .modal-dialog{
+  margin-left: auto;
+  margin-right: 10px;
+}
+
+#modal-body{
+  padding: 5px 15px 15px 15px;
+  display: flex;
+  flex-direction: column;
+}
+
+.modal-header{
+padding: 10px;
+}
+
+.tituloCarrito{
+margin: 0;
+color: chocolate;
+font-weight: 700;
+}
+
+.itemCarrito{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+  border-bottom: solid 1px chocolate;
+  margin-top: 5px;
+}
+
+.info-itemCarrito span{
+  display: block;
+}
+
+.titulo-itemCarrito{
+  font-size: .8rem;
+}
+.subtitulo-itemCarrito{
+  font-size: 0.6rem;
+  color: darkgrey;
+}
+
+.btnEliminar-itemCarrito{
+  border: none;
+  background-color: rgb(237, 61, 61);
+  border-radius: 5px;
+  padding: 0 4px;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.btnEliminar-itemCarrito i{
+color:#fafafa;
+}
+
+.totalCarrito{
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.texto-totalCarrito{
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.btnComprar-carrito{
+  border: solid 1px #262525;
+  border-radius: 10px;
+  background-color: #2bb249;
+  color: #fafafa;
+  padding: 5px 15px;
+  margin: 10px auto 0 auto;
+  box-shadow: 0px 4px 5px #717070;
 }
 
 @media(min-width: 980px) {

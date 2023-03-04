@@ -70,23 +70,11 @@ class Cotizacion {
     misCotizaciones.push(cotizacion);
     localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
     actualizarCarrito()
-    mostrarAlertaIngresoCarrito()
+    AlertaIngresoCarrito()
   }
 }
 
-function mostrarAlertaIngresoCarrito(){
-   iziToast.success({
-    // title: 'OK',
-    timeout: 3000,
-    pauseOnHover: false,
-    progressBar: false,
-    transitionIn: "fadeInLeft",
-    message: 'Seguro agregado al carrito',
-});
-}
-
-
-//FUNCIONES
+//FUNCIONES COMUNES
 function formatoMoneda(valor) {
   const formatter = new Intl.NumberFormat("es-AR", {
     style: "currency",
@@ -101,6 +89,17 @@ function quitarFormatoMoneda(valor) {
     valor = valor.replace(/[a-zA-Z ,.$]/g, "");
   }
   return Number(valor.trim());
+}
+
+function AlertaIngresoCarrito(){
+  iziToast.success({
+   // title: 'OK',
+   timeout: 3000,
+   pauseOnHover: false,
+   progressBar: false,
+   transitionIn: "fadeInLeft",
+   message: 'Seguro agregado al carrito',
+});
 }
 
 //LISTAS
@@ -366,19 +365,80 @@ function actualizarCarrito(){
   numeritoCarrito.innerText = numerito;
 }
 
-
 //BOTON CARRITO
-botonCarrito = document.querySelector("#carrito");
+const botonCarrito = document.querySelector("#carrito");
 botonCarrito.addEventListener("click", consultarCarrito)
 function consultarCarrito(){
   let misCotizaciones = (JSON.parse(localStorage.getItem("misCotizaciones")) || []);
-  
-  if(misCotizaciones){
-    alert(`Existen ${misCotizaciones.length} cotizaciones`)
+  mostrarModalCarrito(misCotizaciones);
+}
+
+//MODAL CARRITO
+const modal = document.querySelector("#modal-carrito");
+function mostrarModalCarrito(arrayCotizaciones){
+  let modalBody = document.querySelector("#modal-body");
+  let amountCarrito = 0;
+  if (arrayCotizaciones.length >0){
+    arrayCotizaciones.forEach((cot,indice) => {
+      modalBody.innerHTML += `
+      <div class="itemCarrito">
+        <div class="info-itemCarrito">
+          <span class="titulo-itemCarrito">${indice+1} - Seguro ${cot.ramo} por ${formatoMoneda(cot.costoSeguro)}</span>
+          <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${cot.bienAsegurado.marca} ${cot.bienAsegurado.modelo} ${cot.bienAsegurado.anio} de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
+        </div>
+        <button id="eliminar-itemCarrito-${indice}" class="btnEliminar-itemCarrito"><i class="bi bi-trash3"></i></button>
+      </div>
+      `
+      //total del carrito
+      amountCarrito += cot.costoSeguro
+    });
+
+    //Agrego el total del carrito
+    let divAmount = document.createElement("div");
+    divAmount.className = "totalCarrito"
+    divAmount.innerHTML = `
+    <span class="texto-totalCarrito">Total:</span>
+    <span class="texto-totalCarrito">${formatoMoneda(amountCarrito)}</span>
+    `
+    modalBody.append(divAmount)
+
+    //Agrego Boton Finalizar Compra
+    let botonComprar = document.createElement("button");
+    botonComprar.innerText = "Finalizar Compra"
+    botonComprar.className = "btnComprar-carrito"
+    modalBody.append(botonComprar);
+
+
+    //Agregamos addEventListener a cada Boton Eliminar
+    arrayCotizaciones.forEach((cot,indice) =>{
+      let botonEliminar = document.querySelector(`#eliminar-itemCarrito-${indice}`);
+      botonEliminar.addEventListener("click",() => {eliminarItemCarrito(indice)})
+    })
+
   }else{
-    alert("No hay cotizaciones")
+    modalBody.innerHTML = `<span class="titulo-itemCarrito">No tienes seguros cotizados</span>`
   }
 }
+
+//Boton Eliminar Item --> MODAL CARRITO
+function eliminarItemCarrito(indice){
+let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones"));
+misCotizaciones.splice(indice,1);
+localStorage.setItem("misCotizaciones",JSON.stringify(misCotizaciones));
+actualizarCarrito()
+let modalBody = document.querySelector("#modal-body");
+modalBody.innerHTML = "";
+mostrarModalCarrito(misCotizaciones);
+
+}
+
+//Boton Cerarr --> MODAL CARRITO
+const btnCerrarModal = modal.querySelector(".btn-close");
+btnCerrarModal.addEventListener("click",()=>{
+  let modalBody = document.querySelector("#modal-body")
+  modalBody.innerHTML = "";
+});
+
 
 //COMPORTAMIENTO DEL NAV CON EL SCROLL
 window.addEventListener("scroll", bgcNavBar);

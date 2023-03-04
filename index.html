@@ -47,7 +47,7 @@
             </li>
             <li><a class="navitem" href="./movilidad.html">Movilidad</a></li>
             <li>
-              <button id="carrito">
+              <button id="carrito" data-bs-toggle="modal" data-bs-target="#modal-carrito">
                 <i class="bi bi-cart-fill"></i><span id="numeritoCarrito">0</span>
               </button>
             </li>
@@ -123,6 +123,21 @@
         </form>
       </section>
     </main>
+
+    <!-- Modal carrito -->
+    <div  id="modal-carrito" class="modal fade" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h6 class="tituloCarrito" id="staticBackdropLabel">Tu carrito de Seguros</h6>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div id="modal-body" class="modal-body">
+          </div>
+        </div>
+      </div>
+    </div>    
+
     <footer
       class="d-flex flex-wrap justify-content-between align-items-center py-3 my-4 border-top container"
     >
