@@ -63,14 +63,15 @@ class Cotizacion {
 
   agregarLS() {
     //Verificamos si existe un LS
-    let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones")) || [];
-    
+    let misCotizaciones =
+      JSON.parse(localStorage.getItem("misCotizaciones")) || [];
+
     //agregar al LS
     let cotizacion = this;
     misCotizaciones.push(cotizacion);
     localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
-    actualizarCarrito()
-    AlertaIngresoCarrito()
+    actualizarCarrito();
+    alertaIngresoCarrito();
   }
 }
 
@@ -91,14 +92,39 @@ function quitarFormatoMoneda(valor) {
   return Number(valor.trim());
 }
 
-function AlertaIngresoCarrito(){
+function alertaIngresoCarrito() {
   iziToast.success({
-   // title: 'OK',
-   timeout: 3000,
-   pauseOnHover: false,
-   progressBar: false,
-   transitionIn: "fadeInLeft",
-   message: 'Seguro agregado al carrito',
+    // title: 'OK',
+    timeout: 3000,
+    pauseOnHover: false,
+    progressBar: false,
+    transitionIn: "fadeInLeft",
+    message: "Seguro agregado al carrito",
+  });
+}
+
+function alertaItemCarritoEliminado() {
+  iziToast.info({
+    // title: "OK",
+    icon: `bi bi-trash3`,
+    backgroundColor: "#d78989",
+    timeout: 3000,
+    pauseOnHover: false,
+    progressBar: false,
+    transitionIn: "fadeInLeft",
+    message: "Seguro eliminado del carrito",
+  });
+}
+
+function alertaInformativa(message){
+  iziToast.warning({
+    // title: 'Caution',
+    timeout: 3000,
+    pauseOnHover: false,
+    progressBar: false,
+    transitionIn: "fadeInRight",
+    position: "topLeft",
+    message,
 });
 }
 
@@ -190,7 +216,18 @@ function actualizarSelectModelo() {
 const selectGas = document.querySelector("#tieneGas");
 
 //SELECT AÑO
-const selectAnio = document.querySelector("#anioVh");
+const inputAnio = document.querySelector("#anioVh");
+inputAnio.addEventListener("change", verificarAnio);
+function verificarAnio(){
+if (isNaN(inputAnio.value) || inputAnio.value.length != 4){
+  alertaInformativa("El año debe ser numérico con 4 caractéres");
+  inputAnio.value = ""
+}else if(inputAnio.value < 1998){
+  alertaInformativa("No es posible cotizar vehículos anteriores al año 1998");
+  inputAnio.value = 1998  
+};
+
+}
 
 //SELECT SUMAVH
 const inputSumaVh = document.querySelector("#sumaVh");
@@ -200,12 +237,12 @@ inputSumaVh.addEventListener("click", () => {
 inputSumaVh.addEventListener("change", cambiarFormatoSumaVh);
 function cambiarFormatoSumaVh() {
   let valor = quitarFormatoMoneda(inputSumaVh.value);
-  if (isNaN(valor) || valor <= 0){
-    inputSumaVh.value = ""
-    alert("Suma asegurada deben ser numeros enteros positivos")
-  } else{
+  if (isNaN(valor) || valor <= 0) {
+    inputSumaVh.value = "";
+    alertaInformativa("Suma asegurada deben ser numeros enteros positivos");
+  } else {
     inputSumaVh.value = formatoMoneda(Math.ceil(valor));
-  }   
+  }
 }
 
 //SUBMIT COTIZAR
@@ -216,9 +253,12 @@ function cotizar(e) {
   let marcaVh = selectMarca.options[selectMarca.selectedIndex].text;
   let modeloVh = selectModelo.options[selectModelo.selectedIndex].text;
   let sumaVh = quitarFormatoMoneda(inputSumaVh.value);
-  let anioVh = Number(selectAnio.value);
-  let tieneGasVh = selectGas.options[selectGas.selectedIndex].text.toLowerCase() === "si" ? true : false;
-   
+  let anioVh = Number(inputAnio.value);
+  let tieneGasVh =
+    selectGas.options[selectGas.selectedIndex].text.toLowerCase() === "si"
+      ? true
+      : false;
+
   if (isNaN(sumaVh) || isNaN(anioVh)) {
     alert(
       "No es posible cotizar ya que los valores de Suma Asegurada y Año ingresados no son numéricos"
@@ -338,7 +378,7 @@ function cotizar(e) {
         agregarCotizacion(plan.id, plan.nombre, plan.factorRecargo)
       );
     });
-    
+
     function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {
       let cotizacion = new Cotizacion(
         "automotores",
@@ -356,89 +396,97 @@ function cotizar(e) {
   }
 }
 
-
 //ACTUALIZACION NUMERITO BOTON CARRITO
-actualizarCarrito()
-function actualizarCarrito(){
-  let numerito = JSON.parse(localStorage.getItem("misCotizaciones"))?.length || 0;
+actualizarCarrito();
+function actualizarCarrito() {
+  let numerito =
+    JSON.parse(localStorage.getItem("misCotizaciones"))?.length || 0;
   numeritoCarrito = document.querySelector("#numeritoCarrito");
   numeritoCarrito.innerText = numerito;
 }
 
 //BOTON CARRITO
 const botonCarrito = document.querySelector("#carrito");
-botonCarrito.addEventListener("click", consultarCarrito)
-function consultarCarrito(){
-  let misCotizaciones = (JSON.parse(localStorage.getItem("misCotizaciones")) || []);
+botonCarrito.addEventListener("click", consultarCarrito);
+function consultarCarrito() {
+  let misCotizaciones =
+    JSON.parse(localStorage.getItem("misCotizaciones")) || [];
   mostrarModalCarrito(misCotizaciones);
 }
 
 //MODAL CARRITO
 const modal = document.querySelector("#modal-carrito");
-function mostrarModalCarrito(arrayCotizaciones){
+function mostrarModalCarrito(arrayCotizaciones) {
   let modalBody = document.querySelector("#modal-body");
   let amountCarrito = 0;
-  if (arrayCotizaciones.length >0){
-    arrayCotizaciones.forEach((cot,indice) => {
+  if (arrayCotizaciones.length > 0) {
+    arrayCotizaciones.forEach((cot, indice) => {
       modalBody.innerHTML += `
       <div class="itemCarrito">
         <div class="info-itemCarrito">
-          <span class="titulo-itemCarrito">${indice+1} - Seguro ${cot.ramo} por ${formatoMoneda(cot.costoSeguro)}</span>
-          <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${cot.bienAsegurado.marca} ${cot.bienAsegurado.modelo} ${cot.bienAsegurado.anio} de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
+          <span class="titulo-itemCarrito">${indice + 1} - Seguro ${
+        cot.ramo
+      } por ${formatoMoneda(cot.costoSeguro)}</span>
+          <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${
+        cot.bienAsegurado.marca
+      } ${cot.bienAsegurado.modelo} ${
+        cot.bienAsegurado.anio
+      } de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
         </div>
         <button id="eliminar-itemCarrito-${indice}" class="btnEliminar-itemCarrito"><i class="bi bi-trash3"></i></button>
       </div>
-      `
+      `;
       //total del carrito
-      amountCarrito += cot.costoSeguro
+      amountCarrito += cot.costoSeguro;
     });
 
     //Agrego el total del carrito
     let divAmount = document.createElement("div");
-    divAmount.className = "totalCarrito"
+    divAmount.className = "totalCarrito";
     divAmount.innerHTML = `
     <span class="texto-totalCarrito">Total:</span>
     <span class="texto-totalCarrito">${formatoMoneda(amountCarrito)}</span>
-    `
-    modalBody.append(divAmount)
+    `;
+    modalBody.append(divAmount);
 
     //Agrego Boton Finalizar Compra
     let botonComprar = document.createElement("button");
-    botonComprar.innerText = "Finalizar Compra"
-    botonComprar.className = "btnComprar-carrito"
+    botonComprar.innerText = "Finalizar Compra";
+    botonComprar.className = "btnComprar-carrito";
     modalBody.append(botonComprar);
 
-
     //Agregamos addEventListener a cada Boton Eliminar
-    arrayCotizaciones.forEach((cot,indice) =>{
-      let botonEliminar = document.querySelector(`#eliminar-itemCarrito-${indice}`);
-      botonEliminar.addEventListener("click",() => {eliminarItemCarrito(indice)})
-    })
-
-  }else{
-    modalBody.innerHTML = `<span class="titulo-itemCarrito">No tienes seguros cotizados</span>`
+    arrayCotizaciones.forEach((cot, indice) => {
+      let botonEliminar = document.querySelector(
+        `#eliminar-itemCarrito-${indice}`
+      );
+      botonEliminar.addEventListener("click", () => {
+        eliminarItemCarrito(indice);
+      });
+    });
+  } else {
+    modalBody.innerHTML = `<span class="titulo-itemCarrito">No tienes seguros cotizados</span>`;
   }
 }
 
 //Boton Eliminar Item --> MODAL CARRITO
-function eliminarItemCarrito(indice){
-let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones"));
-misCotizaciones.splice(indice,1);
-localStorage.setItem("misCotizaciones",JSON.stringify(misCotizaciones));
-actualizarCarrito()
-let modalBody = document.querySelector("#modal-body");
-modalBody.innerHTML = "";
-mostrarModalCarrito(misCotizaciones);
-
+function eliminarItemCarrito(indice) {
+  let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones"));
+  misCotizaciones.splice(indice, 1);
+  localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
+  actualizarCarrito();
+  let modalBody = document.querySelector("#modal-body");
+  modalBody.innerHTML = "";
+  mostrarModalCarrito(misCotizaciones);
+  alertaItemCarritoEliminado();
 }
 
 //Boton Cerarr --> MODAL CARRITO
 const btnCerrarModal = modal.querySelector(".btn-close");
-btnCerrarModal.addEventListener("click",()=>{
-  let modalBody = document.querySelector("#modal-body")
+btnCerrarModal.addEventListener("click", () => {
+  let modalBody = document.querySelector("#modal-body");
   modalBody.innerHTML = "";
 });
-
 
 //COMPORTAMIENTO DEL NAV CON EL SCROLL
 window.addEventListener("scroll", bgcNavBar);
@@ -449,6 +497,7 @@ function bgcNavBar() {
   const header = document.querySelector("#hero");
   const logoNav = document.querySelector("#logoNav");
   const ulNav = document.getElementsByClassName("navitem");
+  const iMenuHamb = document.querySelector("#menuHamburguer");
 
   if (positionBtnCotizar.top <= 10) {
     header.className = "bgc-grey";
@@ -456,11 +505,13 @@ function bgcNavBar() {
     for (let i = 0; i < ulNav.length; i++) {
       ulNav[i].classList.add("black");
     }
+    iMenuHamb.classList.add("orange");
   } else {
     header.className = "bgc-transparet";
     logoNav.classList.remove("black");
     for (let i = 0; i < ulNav.length; i++) {
       ulNav[i].classList.remove("black");
     }
+    iMenuHamb.classList.remove("orange");
   }
 }

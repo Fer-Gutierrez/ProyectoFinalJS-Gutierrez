@@ -83,6 +83,11 @@ padding: 5px 10px;
 display: flex;
 }
 
+.contenedor-links{
+  display: flex;
+  align-items: center;
+}
+
 .navitem{
   color: rgba(240, 255, 255, 0.847);
   margin: auto;
@@ -115,7 +120,6 @@ display: flex;
   transform: scale(1, 1);
 }
 
-
 .navitem.activo{
   color:chocolate;
 }
@@ -129,6 +133,8 @@ display: flex;
   border-radius: 150%;
   cursor: pointer;
   padding: 5px;
+  width: 40px;
+  height: 40px;
 }
 
 #carrito i, #carrito span{
@@ -364,11 +370,10 @@ footer small {
 }
 
 
-
 /* MODAL CARRITO */
 #modal-carrito .modal-dialog{
-  margin-left: auto;
-  margin-right: 10px;
+  margin-left: minmax(10px, auto);
+   margin-right: 10px;
 }
 
 #modal-body{
@@ -449,6 +454,42 @@ color:#fafafa;
 
 @media(max-width: 980px) {
   .links{
+    display: none;
+  }
+
+  .menuHamburguer{
+    background-color: transparent;
+    border: none;
+    margin: 0 2px 0 10px;
+  }
+
+  .menuHamburguer i{
+    font-size: 2rem;
+    font-weight: 700;
+    color:rgba(240, 255, 255, 0.847)
+  }
+
+  .menuHamburguer i.orange{
+    color: chocolate;
+  }
+
+  .menuHamburguer i.orange:hover{
+    color: chocolate;
+  }
+
+  .presentacion_principal p{
+    padding: 0 150px;
+  }
+}
+
+@media(max-width: 788px){
+  .presentacion_principal p{
+    padding: 0 100px;
+  }
+}
+
+@media(max-width: 650px){
+  .presentacion_principal p{
     display: none;
   }
 }
