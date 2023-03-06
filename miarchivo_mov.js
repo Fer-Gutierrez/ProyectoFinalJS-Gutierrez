@@ -1,95 +1,204 @@
-const listaMarcas = [
-  { marca: "SLP", tasa: 65 },
-  { marca: "Venzo", tasa: 65 },
-  { marca: "Giant", tasa: 65 },
-  { marca: "Delma", tasa: 65 },
+//CLASES
+class Movilidad {
+  constructor(marca, sumaAsegurada) {
+    (this.marca = marca), (this.sumaAsegurada = sumaAsegurada);
+  }
+
+  obtenerTasa() {
+    let movEncontrada = listaMarcasMovilidad.find(
+      valor => valor.marca.toLowerCase() === this.marca.toLowerCase()
+    );
+    return movEncontrada.tasaBasica;
+  }
+}
+
+//LISTAS
+const listaMarcasMovilidad = [
+  { id: 1, marca: "SLP", tasaBasica: 35 },
+  { id: 2, marca: "Venzo", tasaBasica: 40 },
+  { id: 3, marca: "Giant", tasaBasica: 38 },
+  { id: 4, marca: "Delma", tasaBasica: 32 },
+];
+const listaPlanesMovilidad = [
+  { id: 1, nombre: "Robo Básico", factorRecargo: 1 },
+  { id: 2, nombre: "Robo y Daño", factorRecargo: 1.15 },
+  { id: 3, nombre: "Todo Riesgo", factorRecargo: 1.4 },
+];
+const listaCoberturasMovilidad = [
+  { id: 1, cobertura: "Robo Total medio de movilidad", planes: [1, 2, 3] },
+  { id: 2, cobertura: "Daños por la tentativa de robo", planes: [1, 2, 3] },
+  { id: 3, cobertura: "Hurto en la vivienda del asegurado", planes: [1, 2, 3] },
+  { id: 4, cobertura: "Daño total", planes: [2, 3] },
+  { id: 5, cobertura: "Robo de accesorios", planes: [2, 3] },
+  { id: 6, cobertura: "Robo de documentos personales", planes: [2, 3] },
+  {
+    id: 7,
+    cobertura: "Daños a equipos electrónicos (hasta $ 20.000)",
+    planes: [3],
+  },
+  {
+    id: 8,
+    cobertura: "Responsabilidad Civil por el uso de movilidad",
+    planes: [3],
+  },
+  { id: 9, cobertura: "Asistencia a la movilidad", planes: [1, 2, 3] },
 ];
 
-const cantMovilidad = SolicitarDato();
-if (cantMovilidad !== null) {
-  cotizar(cantMovilidad);
+//SELECT MARCAS
+const selectMarca = document.querySelector("#marcaMov");
+selectMarca.innerHTML = `<option selected="true" disabled="disabled">Seleccione una marca</option>`;
+for (let marcaMov of listaMarcasMovilidad) {
+  selectMarca.innerHTML += `<option value="${marcaMov.id}">${marcaMov.marca}</option>`;
 }
 
-function SolicitarDato() {
-  let cant = prompt(
-    'Ingrese la cantidad de medios de movilidad a cotizar\nPara salir escriba: "SALIR" '
-  );
-
-  if (cant.toLowerCase() === "salir") {
-    return null;
-  } else if (isNaN(parseInt(cant))) {
-    alert("Debe ingresar un valor numérico, vuelva a intentarlo");
-    SolicitarDato();
-  } else if (parseInt(cant === 0)) {
-    alert("Ingresó 0, vuelva a cargar la pagina para intentarlo");
-    return null;
+//SELECT SUMAVH
+const inputSumaMov = document.querySelector("#sumaMov");
+inputSumaMov.addEventListener("click", () => inputSumaMov.select());
+inputSumaMov.addEventListener("change", cambiarFormatoSuma);
+function cambiarFormatoSuma() {
+  let valor = quitarFormatoMoneda(inputSumaMov.value);
+  if (isNaN(valor) || valor <= 0) {
+    inputSumaMov.value = "";
+    alertaInformativa("Suma asegurada deben ser numeros enteros positivos");
   } else {
-    return parseInt(cant);
+    inputSumaMov.value = formatoMoneda(Math.ceil(valor));
   }
 }
 
-function cotizar(cant) {
-  const listaCot = new Array(0);
+//SUBMIT COTIZAR
+const formCotizar = document.querySelector("#form-cotizar-mov");
+formCotizar.addEventListener("submit", cotizar);
+function cotizar(e) {
+  e.preventDefault();
+  let marcaMov = selectMarca.options[selectMarca.selectedIndex].text;
+  let sumaMov = quitarFormatoMoneda(inputSumaMov.value);
 
-  for (let i = 0; i < cant; i++) {
-    let marcaMov = prompt(`Ingrese la marca del medio de movilidad ${i + 1}`);
-    let movEncontrada = listaMarcas.some(valor => valor.marca.toLowerCase() === marcaMov.toLowerCase());
-    if(movEncontrada === false){
-      let stringMarcas = "";
-      listaMarcas.forEach(
-        valor => (stringMarcas = `${stringMarcas}\n - ${valor.marca}`)
-      );
-
-      alert(
-        `No contamos con el seguro del medio de movilidad ingresado.\nFavor de ingresar una de las siguientes marcas ${stringMarcas}`
-      );
-
-      i = i - 1;
-      continue
-    }
-
-    let sumaMov;
-    let tasaMov = obtenerTasa(marcaMov);
-    if (isNaN(tasaMov)) {
-      alert("Por el momento no contamos con un costo para esta marca. Favor intentelo con una marca distinta.");
-      i = i - 1;
-        continue;
-    } else {
-      sumaMov = Number(
-        prompt(`Ingrese el precio de su medio de movilidad ${i + 1}`)
-      );
-      if (isNaN(sumaMov)) {
-        alert("Debe ingresar un valor numérico. Intetelo nuevamente.");
-        i = i - 1;
-        continue;
-      }
-
-      let costoSeguro = (sumaMov * tasaMov) / 1000 / 12;
-
-      listaCot.push({ marca: marcaMov, suma: sumaMov, costo: costoSeguro });
-    }
-  }
-
-  if (listaCot.length > 0) {
-    let stringCosto = "";
-    listaCot.forEach(
-      valor =>
-        (stringCosto = `${stringCosto}\n - Mov: ${valor.marca} SA: $ ${
-          valor.suma
-        } --> Costo Mensual: $ ${Math.round(valor.costo)}`)
-    );
-    let costoTotal = 0;
-    listaCot.forEach(valor => (costoTotal += Math.round(valor.costo)));
-
-    alert(
-      `El costo mensual del seguro es: $ ${costoTotal}\nCon los siguientes medios de movilidad:\n${stringCosto}`
+  if (isNaN(sumaMov)) {
+    alertaInformativa(
+      "No es posible cotizar. Suma Asegurada y Año ingresados deben ser numéricos"
     );
   } else {
-    alert("No se pudo cotizar con la informacion suministrada");
+    //Cotizamos
+    let movilidad = new Movilidad(marcaMov, sumaMov);
+    let tasa = movilidad.obtenerTasa();
+    let costoSeguro = (sumaMov * tasa) / 1000;
+
+    /** RENDERIZAR **/
+    //Div
+    let div = document.querySelector("#cotizacion");
+    if (div != null) {
+      div.remove();
+    }
+    div = document.createElement("div");
+    div.id = "cotizacion";
+    div.className = "informacion";
+
+    //SubtituloDiv
+    let tituloDiv = document.createElement("h2");
+    tituloDiv.className = "subtitulo animate__animated animate__slideInDown";
+    tituloDiv.innerText = "Planes Disponibles";
+    div.append(tituloDiv);
+
+    //ParrafoDiv
+    let parrafo = document.createElement("p");
+    parrafo.innerText = `Cotización para un medio de movilidad marca ${marcaMov} de ${formatoMoneda(
+      sumaMov
+    )}:`;
+    div.append(parrafo);
+
+    //DivTabla
+    let divTabla = document.createElement("div");
+    divTabla.className = "table-responsive";
+
+    //Tabla
+    let tabla = document.createElement("table");
+    tabla.id = "tabla-costo";
+    tabla.className = "table scale-in-center";
+
+    //EncabezadoTabla
+    let encabezadoTabla = document.createElement("thead");
+    let filaEncabezado = document.createElement("tr");
+    filaEncabezado.innerHTML = `<th scope="col">Coberturas</th>`;
+    listaPlanesMovilidad.forEach(
+      plan =>
+        (filaEncabezado.innerHTML += `<th scope="col">${plan.nombre}</th>`)
+    );
+    encabezadoTabla.append(filaEncabezado);
+    tabla.append(encabezadoTabla);
+
+    //CuerpoTabla
+    let cuerpoTabla = document.createElement("tbody");
+    cuerpoTabla.className = "table-group-divider";
+    listaCoberturasMovilidad.forEach(cobertura => {
+      let fila = document.createElement("tr");
+      let columnaCob = document.createElement("td");
+      columnaCob.innerText = cobertura.cobertura;
+      fila.append(columnaCob);
+
+      listaPlanesMovilidad.forEach(plan => {
+        let colummaPlan = document.createElement("td");
+        let planEncontrado = cobertura.planes.some(valor => valor === plan.id);
+        if (planEncontrado) {
+          colummaPlan.innerHTML = `<i class="icon-check">`;
+        } else {
+          colummaPlan.innerHTML = `<i class="icon-x">`;
+        }
+        fila.append(colummaPlan);
+      });
+      cuerpoTabla.append(fila);
+    });
+
+    //Fila Costo:
+    let filaCosto = document.createElement("tr");
+    filaCosto.className = "fila-costo";
+    filaCosto.innerHTML = `<td>Costo</td>`;
+
+    //Fila Boton Contratar:
+    let filaBoton = document.createElement("tr");
+    filaBoton.className = "fila-boton";
+    filaBoton.innerHTML = "<td></td>";
+
+    //Rellenado de filaCosto y filaBoton
+    listaPlanesMovilidad.forEach(plan => {
+      filaCosto.innerHTML += `<td>${formatoMoneda(
+        Math.ceil(costoSeguro * plan.factorRecargo)
+      )}</td>`;
+      filaBoton.innerHTML += `<td><button id="btnContratar${plan.id}">Contratar</button></td>`;
+    });
+
+    //Agregamos elementos al HTML
+    cuerpoTabla.append(filaCosto);
+    cuerpoTabla.append(filaBoton);
+    tabla.append(cuerpoTabla);
+    divTabla.append(tabla);
+    div.append(divTabla);
+    const seccionCotizador = document.querySelector("#cotizador");
+    seccionCotizador.append(div);
+    formCotizar.reset();
+
+    //AgregadO Evento a Boton Contratar
+    listaPlanesMovilidad.forEach(plan => {
+      let boton = document.querySelector(`#btnContratar${plan.id}`);
+      boton.addEventListener("click", () =>
+        agregarCotizacion(plan.id, plan.nombre, plan.factorRecargo)
+      );
+    });
+
+    function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {
+      let cotizacion = new Cotizacion(
+        "movilidad",
+        idPlan,
+        nombrePlan,
+        movilidad,
+        Math.ceil(costoSeguro * recargoPlan)
+      );
+      cotizacion.agregarLS();
+    }
+
+    //ViewPort hacia Seccion Planes
+    let positionDivCotizacion = div.getBoundingClientRect();
+    window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
   }
 }
 
-function obtenerTasa(marca) {
- let mov = listaMarcas.find(valor => valor.marca.toLowerCase() === marca.toLowerCase());
- return mov.tasa;
-}
+

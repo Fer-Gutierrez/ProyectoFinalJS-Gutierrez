@@ -52,113 +52,35 @@ class Vehiculo {
   }
 }
 
-class Cotizacion {
-  constructor(ramo, planId, planNombre, bienAsegurado, costoSeguro) {
-    this.ramo = ramo;
-    this.planId = planId;
-    this.planNombre = planNombre;
-    this.bienAsegurado = bienAsegurado;
-    this.costoSeguro = costoSeguro;
-  }
-
-  agregarLS() {
-    //Verificamos si existe un LS
-    let misCotizaciones =
-      JSON.parse(localStorage.getItem("misCotizaciones")) || [];
-
-    //agregar al LS
-    let cotizacion = this;
-    misCotizaciones.push(cotizacion);
-    localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
-    actualizarCarrito();
-    alertaIngresoCarrito();
-  }
-}
-
-//FUNCIONES COMUNES
-function formatoMoneda(valor) {
-  const formatter = new Intl.NumberFormat("es-AR", {
-    style: "currency",
-    minimumFractionDigits: 0,
-    currency: "ars",
-  });
-  return formatter.format(valor);
-}
-
-function quitarFormatoMoneda(valor) {
-  if (isNaN(valor)) {
-    valor = valor.replace(/[a-zA-Z ,.$]/g, "");
-  }
-  return Number(valor.trim());
-}
-
-function alertaIngresoCarrito() {
-  iziToast.success({
-    // title: 'OK',
-    timeout: 3000,
-    pauseOnHover: false,
-    progressBar: false,
-    transitionIn: "fadeInLeft",
-    message: "Seguro agregado al carrito",
-  });
-}
-
-function alertaItemCarritoEliminado() {
-  iziToast.info({
-    // title: "OK",
-    icon: `bi bi-trash3`,
-    backgroundColor: "#d78989",
-    timeout: 3000,
-    pauseOnHover: false,
-    progressBar: false,
-    transitionIn: "fadeInLeft",
-    message: "Seguro eliminado del carrito",
-  });
-}
-
-function alertaInformativa(message){
-  iziToast.warning({
-    // title: 'Caution',
-    timeout: 3000,
-    pauseOnHover: false,
-    progressBar: false,
-    transitionIn: "fadeInRight",
-    position: "topLeft",
-    message,
-});
-}
-
 //LISTAS
 const listaModelos = [
-  { id: 1, marca: "Volkswagen", modelo: "Gol", tasaBasica: 1.2 },
-  { id: 2, marca: "Volkswagen", modelo: "Polo", tasaBasica: 1.2 },
-  { id: 3, marca: "Volkswagen", modelo: "Saveiro", tasaBasica: 1.2 },
-  { id: 4, marca: "Volkswagen", modelo: "Amarok", tasaBasica: 12 },
-  { id: 5, marca: "Fiat", modelo: "Argo", tasaBasica: 1.4 },
-  { id: 6, marca: "Fiat", modelo: "Palio", tasaBasica: 1.4 },
-  { id: 7, marca: "Fiat", modelo: "Cronos", tasaBasica: 1.4 },
-  { id: 8, marca: "Fiat", modelo: "Punto", tasaBasica: 1.4 },
-  { id: 9, marca: "Honda", modelo: "Fit", tasaBasica: 0.8 },
-  { id: 10, marca: "Honda", modelo: "Civic", tasaBasica: 0.8 },
-  { id: 11, marca: "Honda", modelo: "City", tasaBasica: 0.8 },
-  { id: 12, marca: "Honda", modelo: "CRV", tasaBasica: 0.8 },
-  { id: 13, marca: "Toyota", modelo: "Corolla", tasaBasica: 1 },
-  { id: 14, marca: "Toyota", modelo: "Yaris", tasaBasica: 1 },
-  { id: 15, marca: "Toyota", modelo: "Hilux", tasaBasica: 1 },
-  { id: 16, marca: "Toyota", modelo: "Etios", tasaBasica: 1 },
-  { id: 17, marca: "Toyota", modelo: "SW4", tasaBasica: 1 },
-  { id: 18, marca: "Peugeot", modelo: "207", tasaBasica: 1.5 },
-  { id: 19, marca: "Peugeot", modelo: "208", tasaBasica: 1.5 },
-  { id: 20, marca: "Peugeot", modelo: "308", tasaBasica: 1.5 },
-  { id: 21, marca: "Peugeot", modelo: "408", tasaBasica: 1.5 },
+  { id: 1, marca: "Volkswagen", modelo: "Gol", tasaBasica: 1.5 },
+  { id: 2, marca: "Volkswagen", modelo: "Polo", tasaBasica: 1.5 },
+  { id: 3, marca: "Volkswagen", modelo: "Saveiro", tasaBasica: 1.5 },
+  { id: 4, marca: "Volkswagen", modelo: "Amarok", tasaBasica: 1.5 },
+  { id: 5, marca: "Fiat", modelo: "Argo", tasaBasica: 1.8 },
+  { id: 6, marca: "Fiat", modelo: "Palio", tasaBasica: 1.8 },
+  { id: 7, marca: "Fiat", modelo: "Cronos", tasaBasica: 1.8 },
+  { id: 8, marca: "Fiat", modelo: "Punto", tasaBasica: 1.8 },
+  { id: 9, marca: "Honda", modelo: "Fit", tasaBasica: 1.4 },
+  { id: 10, marca: "Honda", modelo: "Civic", tasaBasica: 1.4 },
+  { id: 11, marca: "Honda", modelo: "City", tasaBasica: 1.4 },
+  { id: 12, marca: "Honda", modelo: "CRV", tasaBasica: 1.4 },
+  { id: 13, marca: "Toyota", modelo: "Corolla", tasaBasica: 1.6 },
+  { id: 14, marca: "Toyota", modelo: "Yaris", tasaBasica: 1.6 },
+  { id: 15, marca: "Toyota", modelo: "Hilux", tasaBasica: 1.6 },
+  { id: 16, marca: "Toyota", modelo: "Etios", tasaBasica: 1.6 },
+  { id: 17, marca: "Toyota", modelo: "SW4", tasaBasica: 1.6 },
+  { id: 18, marca: "Peugeot", modelo: "207", tasaBasica: 2.2 },
+  { id: 19, marca: "Peugeot", modelo: "208", tasaBasica: 2.2 },
+  { id: 20, marca: "Peugeot", modelo: "308", tasaBasica: 2.2 },
+  { id: 21, marca: "Peugeot", modelo: "408", tasaBasica: 2.2 },
 ];
-
 const listaPlanes = [
   { id: 1, nombre: "Tercero Basico", factorRecargo: 1 },
   { id: 2, nombre: "Tercero Completo", factorRecargo: 1.1 },
   { id: 3, nombre: "Todo Riesgo", factorRecargo: 1.2 },
 ];
-
 const listaCoberturas = [
   { id: 1, cobertura: "RC contra terceros Parcial y Total", planes: [1, 2, 3] },
   { id: 2, cobertura: "Servicios de Grúa las 24 hs", planes: [1, 2, 3] },
@@ -231,9 +153,7 @@ if (isNaN(inputAnio.value) || inputAnio.value.length != 4){
 
 //SELECT SUMAVH
 const inputSumaVh = document.querySelector("#sumaVh");
-inputSumaVh.addEventListener("click", () => {
-  inputSumaVh.select();
-});
+inputSumaVh.addEventListener("click", () => inputSumaVh.select());
 inputSumaVh.addEventListener("change", cambiarFormatoSumaVh);
 function cambiarFormatoSumaVh() {
   let valor = quitarFormatoMoneda(inputSumaVh.value);
@@ -260,8 +180,8 @@ function cotizar(e) {
       : false;
 
   if (isNaN(sumaVh) || isNaN(anioVh)) {
-    alert(
-      "No es posible cotizar ya que los valores de Suma Asegurada y Año ingresados no son numéricos"
+    alertaInformativa(
+      "No es posible cotizar. Suma Asegurada y Año ingresados deben ser numéricos"
     );
   } else {
     //Costo Seguro:
@@ -393,125 +313,5 @@ function cotizar(e) {
     //ViewPort hacia Seccion Planes
     let positionDivCotizacion = div.getBoundingClientRect();
     window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
-  }
-}
-
-//ACTUALIZACION NUMERITO BOTON CARRITO
-actualizarCarrito();
-function actualizarCarrito() {
-  let numerito =
-    JSON.parse(localStorage.getItem("misCotizaciones"))?.length || 0;
-  numeritoCarrito = document.querySelector("#numeritoCarrito");
-  numeritoCarrito.innerText = numerito;
-}
-
-//BOTON CARRITO
-const botonCarrito = document.querySelector("#carrito");
-botonCarrito.addEventListener("click", consultarCarrito);
-function consultarCarrito() {
-  let misCotizaciones =
-    JSON.parse(localStorage.getItem("misCotizaciones")) || [];
-  mostrarModalCarrito(misCotizaciones);
-}
-
-//MODAL CARRITO
-const modal = document.querySelector("#modal-carrito");
-function mostrarModalCarrito(arrayCotizaciones) {
-  let modalBody = document.querySelector("#modal-body");
-  let amountCarrito = 0;
-  if (arrayCotizaciones.length > 0) {
-    arrayCotizaciones.forEach((cot, indice) => {
-      modalBody.innerHTML += `
-      <div class="itemCarrito">
-        <div class="info-itemCarrito">
-          <span class="titulo-itemCarrito">${indice + 1} - Seguro ${
-        cot.ramo
-      } por ${formatoMoneda(cot.costoSeguro)}</span>
-          <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${
-        cot.bienAsegurado.marca
-      } ${cot.bienAsegurado.modelo} ${
-        cot.bienAsegurado.anio
-      } de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
-        </div>
-        <button id="eliminar-itemCarrito-${indice}" class="btnEliminar-itemCarrito"><i class="bi bi-trash3"></i></button>
-      </div>
-      `;
-      //total del carrito
-      amountCarrito += cot.costoSeguro;
-    });
-
-    //Agrego el total del carrito
-    let divAmount = document.createElement("div");
-    divAmount.className = "totalCarrito";
-    divAmount.innerHTML = `
-    <span class="texto-totalCarrito">Total:</span>
-    <span class="texto-totalCarrito">${formatoMoneda(amountCarrito)}</span>
-    `;
-    modalBody.append(divAmount);
-
-    //Agrego Boton Finalizar Compra
-    let botonComprar = document.createElement("button");
-    botonComprar.innerText = "Finalizar Compra";
-    botonComprar.className = "btnComprar-carrito";
-    modalBody.append(botonComprar);
-
-    //Agregamos addEventListener a cada Boton Eliminar
-    arrayCotizaciones.forEach((cot, indice) => {
-      let botonEliminar = document.querySelector(
-        `#eliminar-itemCarrito-${indice}`
-      );
-      botonEliminar.addEventListener("click", () => {
-        eliminarItemCarrito(indice);
-      });
-    });
-  } else {
-    modalBody.innerHTML = `<span class="titulo-itemCarrito">No tienes seguros cotizados</span>`;
-  }
-}
-
-//Boton Eliminar Item --> MODAL CARRITO
-function eliminarItemCarrito(indice) {
-  let misCotizaciones = JSON.parse(localStorage.getItem("misCotizaciones"));
-  misCotizaciones.splice(indice, 1);
-  localStorage.setItem("misCotizaciones", JSON.stringify(misCotizaciones));
-  actualizarCarrito();
-  let modalBody = document.querySelector("#modal-body");
-  modalBody.innerHTML = "";
-  mostrarModalCarrito(misCotizaciones);
-  alertaItemCarritoEliminado();
-}
-
-//Boton Cerarr --> MODAL CARRITO
-const btnCerrarModal = modal.querySelector(".btn-close");
-btnCerrarModal.addEventListener("click", () => {
-  let modalBody = document.querySelector("#modal-body");
-  modalBody.innerHTML = "";
-});
-
-//COMPORTAMIENTO DEL NAV CON EL SCROLL
-window.addEventListener("scroll", bgcNavBar);
-function bgcNavBar() {
-  // window.scrollY
-  let btnCotizar = document.getElementsByClassName("cta");
-  let positionBtnCotizar = btnCotizar[0].getBoundingClientRect();
-  const header = document.querySelector("#hero");
-  const logoNav = document.querySelector("#logoNav");
-  const ulNav = document.getElementsByClassName("navitem");
-  const iMenuHamb = document.querySelector("#menuHamburguer");
-
-  if (positionBtnCotizar.top <= 10) {
-    header.className = "bgc-grey";
-    logoNav.classList.add("black");
-    for (let i = 0; i < ulNav.length; i++) {
-      ulNav[i].classList.add("black");
-    }
-    iMenuHamb.classList.add("orange");
-  } else {
-    header.className = "bgc-transparet";
-    logoNav.classList.remove("black");
-    for (let i = 0; i < ulNav.length; i++) {
-      ulNav[i].classList.remove("black");
-    }
-    iMenuHamb.classList.remove("orange");
   }
 }
