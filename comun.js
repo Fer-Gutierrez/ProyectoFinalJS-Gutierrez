@@ -189,6 +189,19 @@ btnCerrarModal.addEventListener("click", () => {
   let modalBody = document.querySelector("#modal-body");
   modalBody.innerHTML = "";
 });
+//Boton hamburguesa
+const btnHamburguesa = document.querySelector(".menuHamburguer");
+const nav = document.querySelector("#nav-links");
+const btnCloseNav = document.querySelector("#close-nav");
+btnHamburguesa.addEventListener("click",()=>{
+  nav.classList.toggle("visible");
+  btnCloseNav.classList.toggle("oculto");
+})
+//Boton close mobile nav
+btnCloseNav.addEventListener("click", ()=>{
+  nav.classList.toggle("visible");
+  btnCloseNav.classList.toggle("oculto");
+});
 
 //EVENTOS EN COMUN
 //Actualizar numerito carrito
