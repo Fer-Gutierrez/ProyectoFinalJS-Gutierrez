@@ -181,6 +181,7 @@ main{
 .presentacion_principal p{
   color:rgba(240, 255, 255, 0.847);
   padding: 0 200px;
+  text-align: center;
 }
 
 a.cta{
@@ -299,13 +300,14 @@ table {
   border-collapse: collapse;
 }
 
-
 th:nth-of-type(2),
 th:nth-of-type(3),
 th:nth-of-type(4),
+th:nth-of-type(5),
 td:nth-of-type(2),
 td:nth-of-type(3),
-td:nth-of-type(4) {
+td:nth-of-type(4), 
+td:nth-of-type(5) {
   text-align: center;
 }
 
@@ -446,6 +448,18 @@ color:#fafafa;
   box-shadow: 0px 4px 5px #717070;
 }
 
+
+#close-nav{
+  font-size: 1.2rem;
+}
+
+#close-nav.oculto{
+  display: none;
+}
+
+
+
+
 @media(min-width: 980px) {
   .menuHamburguer{
     display: none;
@@ -469,11 +483,11 @@ color:#fafafa;
     color:rgba(240, 255, 255, 0.847)
   }
 
-  .menuHamburguer i.orange{
-    color: chocolate;
+  .menuHamburguer i.black{
+    color: black;
   }
 
-  .menuHamburguer i.orange:hover{
+  .menuHamburguer i.black:hover{
     color: chocolate;
   }
 

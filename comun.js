@@ -103,7 +103,7 @@ function mostrarModalCarrito(arrayCotizaciones) {
           <div class="itemCarrito">
             <div class="info-itemCarrito">
               <span class="titulo-itemCarrito">${indice + 1} - Seguro de ${cot.ramo} por ${formatoMoneda(cot.costoSeguro)}</span>
-              <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${cot.bienAsegurado.marca} de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
+              <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${cot.bienAsegurado.familiaEq} ${cot.bienAsegurado.marcaEq} ${cot.bienAsegurado.modeloEq} de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
             </div>
             <button id="eliminar-itemCarrito-${indice}" class="btnEliminar-itemCarrito"><i class="bi bi-trash3"></i></button>
           </div>`;
@@ -210,13 +210,13 @@ function bgcNavBar() {
     for (let i = 0; i < ulNav.length; i++) {
       ulNav[i].classList.add("black");
     }
-    iMenuHamb.classList.add("orange");
+    iMenuHamb.classList.add("black");
   } else {
     header.className = "bgc-transparet";
     logoNav.classList.remove("black");
     for (let i = 0; i < ulNav.length; i++) {
       ulNav[i].classList.remove("black");
     }
-    iMenuHamb.classList.remove("orange");
+    iMenuHamb.classList.remove("black");
   }
 }

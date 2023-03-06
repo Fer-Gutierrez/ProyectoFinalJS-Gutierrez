@@ -44,14 +44,14 @@ const listaCoberturasMovilidad = [
   { id: 9, cobertura: "Asistencia a la movilidad", planes: [1, 2, 3] },
 ];
 
-//SELECT MARCAS
+//SELECT MARCA
 const selectMarca = document.querySelector("#marcaMov");
 selectMarca.innerHTML = `<option selected="true" disabled="disabled">Seleccione una marca</option>`;
 for (let marcaMov of listaMarcasMovilidad) {
   selectMarca.innerHTML += `<option value="${marcaMov.id}">${marcaMov.marca}</option>`;
 }
 
-//SELECT SUMAVH
+//SELECT SUMA
 const inputSumaMov = document.querySelector("#sumaMov");
 inputSumaMov.addEventListener("click", () => inputSumaMov.select());
 inputSumaMov.addEventListener("change", cambiarFormatoSuma);
@@ -66,7 +66,7 @@ function cambiarFormatoSuma() {
 }
 
 //SUBMIT COTIZAR
-const formCotizar = document.querySelector("#form-cotizar-mov");
+const formCotizar = document.querySelector("#form-cotizar");
 formCotizar.addEventListener("submit", cotizar);
 function cotizar(e) {
   e.preventDefault();
@@ -75,7 +75,7 @@ function cotizar(e) {
 
   if (isNaN(sumaMov)) {
     alertaInformativa(
-      "No es posible cotizar. Suma Asegurada y Año ingresados deben ser numéricos"
+      "No es posible cotizar. Suma Asegurada debe ser numérica"
     );
   } else {
     //Cotizamos

@@ -31,6 +31,7 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"
     />
+    
     <!-- CSS -->
     <link rel="stylesheet" href="./styles.css" />
   </head>
@@ -43,6 +44,7 @@
         </a>
         <div class="contenedor-links">        
           <div class="links">
+            <button id="close-nav" class="btn-close oculto"><i class="bi bi-x-lg"></i></button>
             <ul>
               <li>
                 <a class="navitem" href="./index.html">Atomotores</a>
@@ -65,10 +67,9 @@
       <section class="presentacion">
         <div class="presentacion_principal">
           <img class="presentacion_img" src="./img/monopatin.jpg" alt="" />
-          <h1>Animate a dar un paseo</h1>
+          <h1>Movete con tranquilidad</h1>
           <p>
-            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            porro debitis beatae nam reprehenderit explicabo.
+            Con los planes de cobertura que te ofrecemos para tus medios de movilidad, vas a tener la tranquilidad que necesitas.
           </p>
           <a class="cta" href="#cotizador">Cotizalo YA</a>
         </div>
@@ -86,16 +87,16 @@
       </section>
       <section id="cotizador" class="informacion">
         <h2 class="titulo">Cotizalo</h2>
-        <form id="form-cotizar-mov" class="cotizar" action="">
+        <form id="form-cotizar" class="cotizar" action="">
           <div class="cotizar-datos">
             <div class="contenedor-datos">
               <label for="marcaMov">Marca Movilidad:</label>
-              <select name="marcaMov" id="marcaMov" class="cb">
+              <select name="marcaMov" id="marcaMov" class="cb" required>
               </select>
             </div>
             <div class="contenedor-datos">
               <label for="sumaMov">Suma Asegurada:</label>
-              <input type="text" name="sumaMov" id="sumaMov" />
+              <input type="text" name="sumaMov" id="sumaMov" required/>
             </div>
           </div>
           <button id="btn-cotizar" type="submit" value="Cotizar">Cotizar</button>
@@ -221,8 +222,9 @@
       src="https://kit.fontawesome.com/a1fc800b04.js"
       crossorigin="anonymous"
     ></script>
+
     <!-- SCRIPT miarchivo.js -->
-    <script src="./funciones.js"></script>
+    <script src="./comun.js"></script>
     <script src="./miarchivo_mov.js"></script>
   </body>
 </html>
