@@ -193,12 +193,14 @@ btnCerrarModal.addEventListener("click", () => {
 const btnHamburguesa = document.querySelector(".menuHamburguer");
 const nav = document.querySelector("#nav-links");
 const btnCloseNav = document.querySelector("#close-nav");
-btnHamburguesa.addEventListener("click",()=>{
+btnHamburguesa.addEventListener("click",()=>{;
+  nav.classList.toggle("slide-in-top");
   nav.classList.toggle("visible");
   btnCloseNav.classList.toggle("oculto");
 })
 //Boton close mobile nav
 btnCloseNav.addEventListener("click", ()=>{
+  nav.classList.toggle("slide-in-top");
   nav.classList.toggle("visible");
   btnCloseNav.classList.toggle("oculto");
 });
