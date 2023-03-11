@@ -101,24 +101,26 @@
               <label for="sumaVh">Suma Asegurada:</label>
               <input type="text" name="sumaVh" id="sumaVh" required />
             </div>
-            <div class="contenedor-datos">
-              <label for="anioVh">Año:</label>
-              <input
-                type="text"
-                pattern="[0-9]{4}"
-                maxlength="4"
-                name="anioVh"
-                id="anioVh"
-                required
-                title="Se requiere el año (4 números)"
-              />
-            </div>
-            <div class="contenedor-datos">
-              <label for="tieneGas">Tiene Gas:</label>
-              <select name="tieneGas" id="tieneGas" class="cb" required>
-                <option value="1">No</option>
-                <option value="2">Si</option>
-              </select>
+            <div class="contenedor-anio-tieneGas">
+              <div class="contenedor-datos">
+                <label for="anioVh">Año:</label>
+                <input
+                  type="text"
+                  pattern="[0-9]{4}"
+                  maxlength="4"
+                  name="anioVh"
+                  id="anioVh"
+                  required
+                  title="Se requiere el año (4 números)"
+                />
+              </div>
+              <div class="contenedor-datos">
+                <label for="tieneGas">Tiene Gas:</label>
+                <select name="tieneGas" id="tieneGas" class="cb" required>
+                  <option value="1">No</option>
+                  <option value="2">Si</option>
+                </select>
+              </div>
             </div>
           </div>
           <input id="btn-cotizar" type="submit" value="Cotizar" />

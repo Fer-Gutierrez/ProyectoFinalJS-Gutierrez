@@ -245,8 +245,19 @@ a.cta{
 }
 
 .cotizar-datos{
+  display: grid;
+  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  gap: 10px;
+}
+
+.contenedor-datos{
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.contenedor-anio-tieneGas{
+  display: flex;
+  flex-direction: row;
 }
 
 .cotizar-datos .cb{
@@ -254,7 +265,6 @@ a.cta{
   border: solid 1px gray;
   border-radius: 3px;
   padding: 3px 10px;
-  margin: 10px 10px 10px 0;
   min-width: 100px;
 }
 
@@ -263,21 +273,17 @@ a.cta{
   border: solid 1px gray;
   border-radius: 3px;
   padding: 3px 10px;
-  margin: 10px 10px 10px 0;
-}
-
-#sumaVh{
-  min-width: 200px;
-  max-width: 250px;
 }
 
 #anioVh{
   min-width: 50px;
   max-width: 100px;
+  margin-right: 10px;
 }
 
 #tieneGas{
   min-width: 50px;
+  max-width: 100px;
 }
 
 
