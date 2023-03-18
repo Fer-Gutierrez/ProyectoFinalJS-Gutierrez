@@ -251,7 +251,7 @@ a.cta{
 
 .cotizar-datos{
   display: grid;
-  grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+  grid-template-columns: repeat(auto-fit,minmax(280px,1fr));
   gap: 10px;
 }
 
@@ -260,9 +260,9 @@ a.cta{
   flex-direction: column;
 }
 
-.contenedor-anio-tieneGas{
-  display: flex;
-  flex-direction: row;
+.contenedor-anio-modelo{
+  display: grid;
+grid-template-columns: max-content auto;
 }
 
 .cotizar-datos .cb{
@@ -281,8 +281,8 @@ a.cta{
 }
 
 #anioVh{
-  min-width: 50px;
-  max-width: 100px;
+  min-width: 30px;
+  max-width: 60px;
   margin-right: 10px;
 }
 
@@ -326,34 +326,36 @@ td:nth-of-type(5) {
   font: var(--fa-font-solid);
   content: "\f058";
   font-family: "Font Awesome 5 Free";
-  color: forestgreen; }
+  color: forestgreen; 
+}
 
 .icon-x::before {
   font: var(--fa-font-solid);
   content: "\f057";
   font-family: "Font Awesome 5 Free";
   color: #e13c3c;
-  margin: 0 auto; }
+  margin: 0 auto; 
+}
 
-  .fila-costo{
-    border-bottom: transparent;
-    border-top: solid black 2px;
-    font-weight: bold;
-  }
+.fila-costo{
+  border-bottom: transparent;
+  border-top: solid black 2px;
+  font-weight: bold;
+}
 
-  .fila-boton{
-    border-bottom: transparent;
-  }
+.fila-boton{
+  border-bottom: transparent;
+}
 
-  .fila-boton button {
-    font-size: 0.8rem;
-    margin: 0 auto;
-    padding: 0.5rem 0.8rem;
-    font-weight: 600;
-    background-color: #fafafa;
-    border-radius: 10px;
-    border-color: #262525;
-    color: chocolate;
+.fila-boton button {
+  font-size: 0.8rem;
+  margin: 0 auto;
+  padding: 0.5rem 0.8rem;
+  font-weight: 600;
+  background-color: #fafafa;
+  border-radius: 10px;
+  border-color: #262525;
+  color: chocolate;
 }
 
 .fila-boton button:hover {

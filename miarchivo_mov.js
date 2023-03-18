@@ -7,14 +7,10 @@ class Movilidad {
   async obtenerTasa() {
     let tasa = await listaMarcasMovilidad
       .then(data => {
-        let movEncontrada = data.find(
-          valor => valor.marca.toLowerCase() === this.marca.toLowerCase()
-        );
+        let movEncontrada = data.find(valor => valor.marca.toLowerCase() === this.marca.toLowerCase());
         return movEncontrada.tasaBasica;
       })
-      .catch(error => {
-        console.error(error);
-      });
+      .catch(error => console.error(error));
 
     return tasa;
   }

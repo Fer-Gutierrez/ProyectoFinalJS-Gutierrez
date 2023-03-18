@@ -1,0 +1,23 @@
+[
+  { "id": 1, "cobertura": "RC contra terceros Parcial y Total", "planes": [1, 2, 3] },
+  { "id": 2, "cobertura": "Servicios de Grúa las 24 hs", "planes": [1, 2, 3] },
+  { "id": 3, "cobertura": "Incendio Total", "planes": [1, 2, 3] },
+  { "id": 4, "cobertura": "Incendio Parcial", "planes": [2, 3] },
+  { "id": 5, "cobertura": "Robo Total", "planes": [1, 2, 3] },
+  { "id": 6, "cobertura": "Robo Parcial", "planes": [2, 3] },
+  { "id": 7, "cobertura": "Accidente Total", "planes": [3] },
+  { "id": 8, "cobertura": "Cristales Parcial y Total", "planes": [1, 2, 3] },
+  { "id": 9, "cobertura": "Granizo Parcial y Total", "planes": [2, 3] },
+  { "id": 10, "cobertura": "Parabrisas Parcial y Total", "planes": [2, 3] },
+  {
+    "id": 11,
+    "cobertura": "Rotura de Cerraduras Sin Límite y Sin Deducible",
+    "planes": [3]
+  },
+  { "id": 12, "cobertura": "Accidentes Personales", "planes": [3] },
+  {
+    "id": 13,
+    "cobertura": "Extensión de Cobertura a Países Limítrofes",
+    "planes": [1, 2, 3]
+  }
+]

@@ -9,150 +9,107 @@ class Vehiculo {
   }
 
   obtenerRecargoAnio() {
-    return this.anio < 2010
-      ? 1.5
-      : this.anio < 2012
-      ? 1.3
-      : this.anio < 2016
-      ? 1.15
-      : this.anio < 2020
-      ? 1.07
-      : 1;
-
-    // if (this.anio < 2010) {
-    //   return 1.5;
-    // } else if (this.anio < 2012) {
-    //   return 1.3;
-    // } else if (this.anio < 2016) {
-    //   return 1.15;
-    // } else if (this.anio < 2020) {
-    //   return 1.07;
-    // } else {
-    //   return 1;
-    // }
+    return this.anio < 2010? 1.5: this.anio < 2012? 1.3: this.anio < 2016? 1.15: this.anio < 2020? 1.07: 1;
   }
-
   obtenerRecargoGas() {
     return this.tieneGas ? 1.2 : 1;
-
-    // if (this.tieneGas){
-    //   return 1.2
-    // }else{
-    //   return 1
-    // }
-  }
-
-  obtenerTasa() {
-    let vhEncontrado = listaModelos.find(
-      valor =>
-        valor.marca.toLowerCase() === this.marca.toLowerCase() &&
-        valor.modelo.toLowerCase() === this.modelo.toLowerCase()
-    );
-    return vhEncontrado.tasaBasica;
   }
 }
 
-//LISTAS
-const listaModelos = [
-  { id: 1, marca: "Volkswagen", modelo: "Gol", tasaBasica: 1.5 },
-  { id: 2, marca: "Volkswagen", modelo: "Polo", tasaBasica: 1.5 },
-  { id: 3, marca: "Volkswagen", modelo: "Saveiro", tasaBasica: 1.5 },
-  { id: 4, marca: "Volkswagen", modelo: "Amarok", tasaBasica: 1.5 },
-  { id: 5, marca: "Fiat", modelo: "Argo", tasaBasica: 1.8 },
-  { id: 6, marca: "Fiat", modelo: "Palio", tasaBasica: 1.8 },
-  { id: 7, marca: "Fiat", modelo: "Cronos", tasaBasica: 1.8 },
-  { id: 8, marca: "Fiat", modelo: "Punto", tasaBasica: 1.8 },
-  { id: 9, marca: "Honda", modelo: "Fit", tasaBasica: 1.4 },
-  { id: 10, marca: "Honda", modelo: "Civic", tasaBasica: 1.4 },
-  { id: 11, marca: "Honda", modelo: "City", tasaBasica: 1.4 },
-  { id: 12, marca: "Honda", modelo: "CRV", tasaBasica: 1.4 },
-  { id: 13, marca: "Toyota", modelo: "Corolla", tasaBasica: 1.6 },
-  { id: 14, marca: "Toyota", modelo: "Yaris", tasaBasica: 1.6 },
-  { id: 15, marca: "Toyota", modelo: "Hilux", tasaBasica: 1.6 },
-  { id: 16, marca: "Toyota", modelo: "Etios", tasaBasica: 1.6 },
-  { id: 17, marca: "Toyota", modelo: "SW4", tasaBasica: 1.6 },
-  { id: 18, marca: "Peugeot", modelo: "207", tasaBasica: 2.2 },
-  { id: 19, marca: "Peugeot", modelo: "208", tasaBasica: 2.2 },
-  { id: 20, marca: "Peugeot", modelo: "308", tasaBasica: 2.2 },
-  { id: 21, marca: "Peugeot", modelo: "408", tasaBasica: 2.2 },
-];
-const listaPlanes = [
-  { id: 1, nombre: "Tercero Basico", factorRecargo: 1 },
-  { id: 2, nombre: "Tercero Completo", factorRecargo: 1.1 },
-  { id: 3, nombre: "Todo Riesgo", factorRecargo: 1.2 },
-];
-const listaCoberturas = [
-  { id: 1, cobertura: "RC contra terceros Parcial y Total", planes: [1, 2, 3] },
-  { id: 2, cobertura: "Servicios de Grúa las 24 hs", planes: [1, 2, 3] },
-  { id: 3, cobertura: "Incendio Total", planes: [1, 2, 3] },
-  { id: 4, cobertura: "Incendio Parcial", planes: [2, 3] },
-  { id: 5, cobertura: "Robo Total", planes: [1, 2, 3] },
-  { id: 6, cobertura: "Robo Parcial", planes: [2, 3] },
-  { id: 7, cobertura: "Accidente Total", planes: [3] },
-  { id: 8, cobertura: "Cristales Parcial y Total", planes: [1, 2, 3] },
-  { id: 9, cobertura: "Granizo Parcial y Total", planes: [2, 3] },
-  { id: 10, cobertura: "Parabrisas Parcial y Total", planes: [2, 3] },
-  {
-    id: 11,
-    cobertura: "Rotura de Cerraduras Sin Límite y Sin Deducible",
-    planes: [3],
-  },
-  { id: 12, cobertura: "Accidentes Personales", planes: [3] },
-  {
-    id: 13,
-    cobertura: "Extensión de Cobertura a Países Limítrofes",
-    planes: [1, 2, 3],
-  },
-];
+//FETCHS
+const listaPlanes = fetch(`./json/listaPlanesAutomotores.json`)
+  .then(response => response.json())
+  .catch(error => console.error(error));
 
-// SELECT MARCAS
-const selectMarca = document.querySelector("#marcaVh");
-//Genero lista de marcas sin Duplicados
-let marcas = listaModelos.map(valor => valor.marca);
-const listaMarcas = marcas.filter((item, index) => {
-  return marcas.indexOf(item) === index;
-});
-//Actualizo Opciones de Select Marcas
-selectMarca.innerHTML = `<option selected="true" disabled="disabled">Seleccione una marca</option>`;
-for (let vehiculo of listaMarcas) {
-  selectMarca.innerHTML += `<option value="${vehiculo.index}">${vehiculo}</option>`;
-}
+const listaCoberturas = fetch(`./json/listaCoberturasAutomotores.json`)
+  .then(response => response.json())
+  .catch(error => console.error(error))
 
-// SELECT MODELOS
-const selectModelo = document.querySelector("#modeloVh");
-//Actualizo Opciones de Select Modelos
-selectModelo.innerHTML = `<option selected="true" disabled="disabled">Seleccione una marca</option>`;
-selectMarca.addEventListener("change", actualizarSelectModelo);
-function actualizarSelectModelo() {
-  let marcaSeleccionada = selectMarca.options[selectMarca.selectedIndex].text;
-  selectModelo.innerHTML = `<option selected="true" disabled="disabled">Seleccione un modelo</option>`;
-  let listaModelosFiltrados = listaModelos.filter(
-    valor => valor.marca.toLowerCase() === marcaSeleccionada.toLowerCase()
-  );
-  for (modelo of listaModelosFiltrados) {
-    selectModelo.innerHTML += `<option value="${modelo.index}">${modelo.modelo}</option>`;
+//FUNCIONES
+async function obtenerMarcas() {
+  try {
+    let response = await fetch("https://vpic.nhtsa.dot.gov/api/vehicles/GetMakesForVehicleType/car?format=json");
+    let data = await response.json();
+    selectMarca.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione una marca</option>`;
+    selectModelo.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione una marca</option>`;
+    data.Results.sort((a,b)=>{
+      return (a.MakeName < b.MakeName)? -1:(a.MakeName > b.MakeName)? 1:0
+    });
+    let marcasMinusculas = data.Results.map(valor=> {
+      let minusculas = valor.MakeName.toLowerCase();
+      let primeraMayusculas = minusculas[0].toUpperCase() + minusculas.substring(1);
+      return {MakeId: valor.MakeId, MakeName: primeraMayusculas };
+    })
+    marcasMinusculas.forEach(marca => {
+      selectMarca.innerHTML += `<option value="${marca.MakeId}">${marca.MakeName}</option>`;
+    });
+  } catch (error) {
+    console.log(error);
   }
 }
-
-//SELECT GAS
-const selectGas = document.querySelector("#tieneGas");
-
-//SELECT AÑO
-const inputAnio = document.querySelector("#anioVh");
-inputAnio.addEventListener("change", verificarAnio);
+async function obtenerModelos(id, marca, anio) {
+  try {
+    if (anio !== "" && id !=="-1") {
+      let response = await fetch(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeIdYear/makeId/${id}/modelyear/${anio}?format=json`);
+      let data = await response.json();
+      selectModelo.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione un modelo</option>`;
+      if(data.Results.length >0){
+        data.Results.forEach(valor => {
+          selectModelo.innerHTML += `<option value="${valor.Model_ID}">${valor.Model_Name}</option>`;
+        });
+      }else{
+        alertaInformativa(`No existen modelos de la marca ${marca} para el año ${anio}.`)
+        inputAnio.value = "";
+        selectModelo.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione un año</option>`;
+      }
+    }else if(anio === ""){
+      selectModelo.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione el año</option>`;
+    }else if(id === "-1"){
+      selectModelo.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione una marca</option>`;
+    }
+  } catch (error) {
+    console.log(error);
+    
+  }
+}
 function verificarAnio(){
-if (isNaN(inputAnio.value) || inputAnio.value.length != 4){
-  alertaInformativa("El año debe ser numérico con 4 caractéres");
-  inputAnio.value = ""
-}else if(inputAnio.value < 1998){
-  alertaInformativa("No es posible cotizar vehículos anteriores al año 1998");
-  inputAnio.value = 1998  
-};
-
+  if (isNaN(inputAnio.value) || inputAnio.value.length != 4){
+    alertaInformativa("El año debe ser numérico con 4 caractéres");
+    inputAnio.value = ""
+    return false
+  }else if(inputAnio.value < 1998){
+    alertaInformativa("No es posible cotizar vehículos anteriores al año 1998");
+    inputAnio.value = 1998  
+    return false
+  };
+  return true
 }
 
-//SELECT SUMAVH
+// SELECTS e INPUTS
+const selectMarca = document.querySelector("#marcaVh");
+const selectModelo = document.querySelector("#modeloVh");
+const selectGas = document.querySelector("#tieneGas");
+const inputAnio = document.querySelector("#anioVh");
 const inputSumaVh = document.querySelector("#sumaVh");
+
+obtenerMarcas();
+selectMarca.addEventListener("change", () =>
+  obtenerModelos(
+    selectMarca.options[selectMarca.selectedIndex].value,
+    selectMarca.options[selectMarca.selectedIndex].text,
+    inputAnio.value
+  )
+);
+
+inputAnio.addEventListener("change", () =>{
+  if(verificarAnio()){
+    obtenerModelos(selectMarca.options[selectMarca.selectedIndex].value,
+      selectMarca.options[selectMarca.selectedIndex].text,
+      inputAnio.value
+    )};
+  }
+);
+
 inputSumaVh.addEventListener("click", () => inputSumaVh.select());
 inputSumaVh.addEventListener("change", cambiarFormatoSumaVh);
 function cambiarFormatoSumaVh() {
@@ -174,23 +131,17 @@ function cotizar(e) {
   let modeloVh = selectModelo.options[selectModelo.selectedIndex].text;
   let sumaVh = quitarFormatoMoneda(inputSumaVh.value);
   let anioVh = Number(inputAnio.value);
-  let tieneGasVh =
-    selectGas.options[selectGas.selectedIndex].text.toLowerCase() === "si"
-      ? true
-      : false;
+  let tieneGasVh = selectGas.options[selectGas.selectedIndex].text.toLowerCase() === "si"? true : false;
 
   if (isNaN(sumaVh) || isNaN(anioVh)) {
-    alertaInformativa(
-      "No es posible cotizar. Suma Asegurada y Año ingresados deben ser numéricos"
-    );
+    alertaInformativa("No es posible cotizar. Suma Asegurada y Año ingresados deben ser numéricos");
   } else {
     //Costo Seguro:
     let vehiculo = new Vehiculo(marcaVh, modeloVh, anioVh, sumaVh, tieneGasVh);
     let recargoAnio = vehiculo.obtenerRecargoAnio();
     let recargoGas = vehiculo.obtenerRecargoGas();
-    tasaVh = vehiculo.obtenerTasa();
-    let costoSeguro =
-      ((vehiculo.sumaAsegurada * tasaVh) / 1000) * recargoAnio * recargoGas;
+    let tasaVh = 2.2;
+    let costoSeguro =((vehiculo.sumaAsegurada * tasaVh) / 1000) * recargoAnio * recargoGas;
 
     /** RENDERIZAR **/
     //Div
@@ -234,71 +185,92 @@ function cotizar(e) {
     let encabezadoTabla = document.createElement("thead");
     let filaEncabezado = document.createElement("tr");
     filaEncabezado.innerHTML = `<th scope="col">Coberturas</th>`;
-    listaPlanes.forEach(
-      plan =>
-        (filaEncabezado.innerHTML += `<th scope="col">${plan.nombre}</th>`)
-    );
+    listaPlanes.then(data =>{
+      data.forEach(
+        plan =>
+          (filaEncabezado.innerHTML += `<th scope="col">${plan.nombre}</th>`)
+      );
+    })
+    .catch(error => console.error(error));
     encabezadoTabla.append(filaEncabezado);
     tabla.append(encabezadoTabla);
 
     //CuerpoTabla
     let cuerpoTabla = document.createElement("tbody");
     cuerpoTabla.className = "table-group-divider";
-    listaCoberturas.forEach(cobertura => {
-      let fila = document.createElement("tr");
-      let columnaCob = document.createElement("td");
-      columnaCob.innerText = cobertura.cobertura;
-      fila.append(columnaCob);
+    listaCoberturas.then(data =>{
+      data.forEach(cobertura => {
+        let fila = document.createElement("tr");
+        let columnaCob = document.createElement("td");
+        columnaCob.innerText = cobertura.cobertura;
+        fila.append(columnaCob);
+  
+        listaPlanes.then(data =>{
+          data.forEach(plan => {
+            let colummaPlan = document.createElement("td");
+            let planEncontrado = cobertura.planes.some(valor => valor === plan.id);
+            if (planEncontrado) {
+              colummaPlan.innerHTML = `<i class="icon-check">`;
+            } else {
+              colummaPlan.innerHTML = `<i class="icon-x">`;
+            }
+            fila.append(colummaPlan);
+          });
+        })
+        .catch(error=> console.error(error))
 
-      listaPlanes.forEach(plan => {
-        let colummaPlan = document.createElement("td");
-        let planEncontrado = cobertura.planes.some(valor => valor === plan.id);
-        if (planEncontrado) {
-          colummaPlan.innerHTML = `<i class="icon-check">`;
-        } else {
-          colummaPlan.innerHTML = `<i class="icon-x">`;
-        }
-        fila.append(colummaPlan);
+        cuerpoTabla.append(fila);
       });
-      cuerpoTabla.append(fila);
-    });
 
-    //Fila Costo:
-    let filaCosto = document.createElement("tr");
-    filaCosto.className = "fila-costo";
-    filaCosto.innerHTML = `<td>Costo</td>`;
+      //Fila Costo:
+      let filaCosto = document.createElement("tr");
+      filaCosto.className = "fila-costo";
+      filaCosto.innerHTML = `<td>Costo</td>`;
 
-    //Fila Boton Contratar:
-    let filaBoton = document.createElement("tr");
-    filaBoton.className = "fila-boton";
-    filaBoton.innerHTML = "<td></td>";
+      //Fila Boton Contratar:
+      let filaBoton = document.createElement("tr");
+      filaBoton.className = "fila-boton";
+      filaBoton.innerHTML = "<td></td>";
 
-    //Rellenado de filaCosto y filaBoton
-    listaPlanes.forEach(plan => {
-      filaCosto.innerHTML += `<td>${formatoMoneda(
-        Math.ceil(costoSeguro * plan.factorRecargo)
-      )}</td>`;
-      filaBoton.innerHTML += `<td><button id="btnContratar${plan.id}">Contratar</button></td>`;
-    });
+      //Rellenado de filaCosto y filaBoton
+      listaPlanes.then(data=>{
+        data.forEach(plan => {
+          filaCosto.innerHTML += `<td>${formatoMoneda(
+            Math.ceil(costoSeguro * plan.factorRecargo)
+          )}</td>`;
+          filaBoton.innerHTML += `<td><button id="btnContratar${plan.id}">Contratar</button></td>`;
+        });
+      })
+      .catch(error => console.error(error));
 
-    //Agregamos elementos al HTML
-    cuerpoTabla.append(filaCosto);
-    cuerpoTabla.append(filaBoton);
-    tabla.append(cuerpoTabla);
-    divTabla.append(tabla);
-    div.append(divTabla);
-    const seccionCotizador = document.querySelector("#cotizador");
-    seccionCotizador.append(div);
-    formCotizar.reset();
+      //Agregamos elementos al HTML
+      cuerpoTabla.append(filaCosto);
+      cuerpoTabla.append(filaBoton);
+      tabla.append(cuerpoTabla);
+      divTabla.append(tabla);
+      div.append(divTabla);
+      const seccionCotizador = document.querySelector("#cotizador");
+      seccionCotizador.append(div);
+      formCotizar.reset();
+      selectModelo.innerHTML = `<option selected="true" disabled="disabled" value="-1">Seleccione una marca</option>`
 
-    //AgregadO Evento a Boton Contratar
-    listaPlanes.forEach(plan => {
-      let boton = document.querySelector(`#btnContratar${plan.id}`);
-      boton.addEventListener("click", () =>
-        agregarCotizacion(plan.id, plan.nombre, plan.factorRecargo)
-      );
-    });
+      //AgregadO Evento a Boton Contratar
+      listaPlanes.then(data =>{
+        data.forEach(plan => {
+          let boton = document.querySelector(`#btnContratar${plan.id}`);
+          boton.addEventListener("click", () =>
+            agregarCotizacion(plan.id, plan.nombre, plan.factorRecargo)
+          );
+        });
+      })
+      .catch(error => console.error(error))
 
+       //ViewPort hacia Seccion Planes
+      let positionDivCotizacion = div.getBoundingClientRect();
+      window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
+    })
+    .catch(error => console.error(error))
+    
     function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {
       let cotizacion = new Cotizacion(
         "automotores",
@@ -310,8 +282,6 @@ function cotizar(e) {
       cotizacion.agregarLS();
     }
 
-    //ViewPort hacia Seccion Planes
-    let positionDivCotizacion = div.getBoundingClientRect();
-    window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
+   
   }
 }

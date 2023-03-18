@@ -1,0 +1,5 @@
+[
+  { "id": 1, "nombre": "Tercero Basico", "factorRecargo": 1 },
+  { "id": 2, "nombre": "Tercero Completo", "factorRecargo": 1.1 },
+  { "id": 3, "nombre": "Todo Riesgo", "factorRecargo": 1.2 }
+]

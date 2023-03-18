@@ -88,20 +88,7 @@
               <label for="marcaVh">Vehiculo:</label>
               <select name="marcaVh" id="marcaVh" class="cb" required></select>
             </div>
-            <div class="contenedor-datos">
-              <label for="modeloVh">Modelo:</label>
-              <select
-                name="modeloVh"
-                id="modeloVh"
-                class="cb"
-                required
-              ></select>
-            </div>
-            <div class="contenedor-datos">
-              <label for="sumaVh">Suma Asegurada:</label>
-              <input type="text" name="sumaVh" id="sumaVh" required />
-            </div>
-            <div class="contenedor-anio-tieneGas">
+            <div class="contenedor-anio-modelo">
               <div class="contenedor-datos">
                 <label for="anioVh">Año:</label>
                 <input
@@ -115,12 +102,25 @@
                 />
               </div>
               <div class="contenedor-datos">
-                <label for="tieneGas">Tiene Gas:</label>
-                <select name="tieneGas" id="tieneGas" class="cb" required>
-                  <option value="1">No</option>
-                  <option value="2">Si</option>
-                </select>
+                <label for="modeloVh">Modelo:</label>
+                <select
+                  name="modeloVh"
+                  id="modeloVh"
+                  class="cb"
+                  required
+                ></select>
               </div>
+            </div>
+            <div class="contenedor-datos">
+              <label for="sumaVh">Suma Asegurada:</label>
+              <input type="text" name="sumaVh" id="sumaVh" required />
+            </div>
+            <div class="contenedor-datos">
+              <label for="tieneGas">Tiene Gas:</label>
+              <select name="tieneGas" id="tieneGas" class="cb" required>
+                <option value="1">No</option>
+                <option value="2">Si</option>
+              </select>
             </div>
           </div>
           <input id="btn-cotizar" type="submit" value="Cotizar" />
