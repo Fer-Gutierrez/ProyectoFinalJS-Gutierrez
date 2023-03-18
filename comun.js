@@ -76,7 +76,7 @@ function mostrarModalCarrito(arrayCotizaciones) {
             <div class="info-itemCarrito">
               <span class="titulo-itemCarrito">${indice + 1} - Seguro de ${
             cot.ramo
-          } por ${formatoMoneda(cot.costoSeguro)}</span>
+          } por ${formatoMoneda(cot.costoSeguro)} por mes</span>
               <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${
             cot.bienAsegurado.marca
           } ${cot.bienAsegurado.modelo} ${
@@ -92,7 +92,7 @@ function mostrarModalCarrito(arrayCotizaciones) {
             <div class="info-itemCarrito">
               <span class="titulo-itemCarrito">${indice + 1} - Seguro de ${
             cot.ramo
-          } por ${formatoMoneda(cot.costoSeguro)}</span>
+          } por ${formatoMoneda(cot.costoSeguro)} por mes</span>
               <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${cot.bienAsegurado.marca} de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
             </div>
             <button id="eliminar-itemCarrito-${indice}" class="btnEliminar-itemCarrito"><i class="bi bi-trash3"></i></button>
@@ -102,7 +102,7 @@ function mostrarModalCarrito(arrayCotizaciones) {
           modalBody.innerHTML += `
           <div class="itemCarrito">
             <div class="info-itemCarrito">
-              <span class="titulo-itemCarrito">${indice + 1} - Seguro de ${cot.ramo} por ${formatoMoneda(cot.costoSeguro)}</span>
+              <span class="titulo-itemCarrito">${indice + 1} - Seguro de ${cot.ramo} por ${formatoMoneda(cot.costoSeguro)} por mes</span>
               <span class="subtitulo-itemCarrito">Plan ${cot.planNombre}: ${cot.bienAsegurado.familiaEq} ${cot.bienAsegurado.marcaEq} ${cot.bienAsegurado.modeloEq} de ${formatoMoneda(cot.bienAsegurado.sumaAsegurada)}</span>
             </div>
             <button id="eliminar-itemCarrito-${indice}" class="btnEliminar-itemCarrito"><i class="bi bi-trash3"></i></button>
@@ -117,7 +117,7 @@ function mostrarModalCarrito(arrayCotizaciones) {
     let divAmount = document.createElement("div");
     divAmount.className = "totalCarrito";
     divAmount.innerHTML = `
-    <span class="texto-totalCarrito">Total:</span>
+    <span class="texto-totalCarrito">Total mensual:</span>
     <span class="texto-totalCarrito">${formatoMoneda(amountCarrito)}</span>
     `;
     modalBody.append(divAmount);

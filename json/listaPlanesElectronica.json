@@ -1,0 +1,6 @@
+[
+  { "id": 1, "nombre": "Robo Domicilio", "factorRecargo": 1 },
+  { "id": 2, "nombre": "Robo Mundo Entero", "factorRecargo": 1.3 },
+  { "id": 3, "nombre": "Todo Riesgo Domicilio", "factorRecargo": 1.5 },
+  { "id": 4, "nombre": "Todo Riesgo Mundo", "factorRecargo": 1.6 }
+]

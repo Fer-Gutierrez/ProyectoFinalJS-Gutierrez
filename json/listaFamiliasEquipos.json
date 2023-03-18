@@ -1,0 +1,6 @@
+[
+  { "id": 1, "familiaEq": "Notebook", "tasaBasica": 10 },
+  { "id": 2, "familiaEq": "Celular", "tasaBasica": 15 },
+  { "id": 3, "familiaEq": "Consola", "tasaBasica": 12 },
+  { "id": 4, "familiaEq": "Tablet", "tasaBasica": 13 }
+]

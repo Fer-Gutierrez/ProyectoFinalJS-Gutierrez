@@ -1,0 +1,8 @@
+[
+  { "id": 1, "cobertura": "Incendio en domicilio", "planes": [1, 2, 3, 4] },
+  { "id": 2, "cobertura": "Robo en domicilio", "planes": [1, 2, 3, 4] },
+  { "id": 3, "cobertura": "Incendio en el mundo entero", "planes": [2, 4] },
+  { "id": 4, "cobertura": "Robo en el mundo entero", "planes": [2, 4] },
+  { "id": 5, "cobertura": "Daños por accidente en domicilio", "planes": [3, 4] },
+  { "id": 6, "cobertura": "Daños por accidente en el mundo entero", "planes": [4] }
+]
