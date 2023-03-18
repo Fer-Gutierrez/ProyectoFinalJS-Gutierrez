@@ -200,6 +200,10 @@ a.cta{
   position: relative;
 }
 
+.informacion p{
+  text-align: justify;
+}
+
 .titulo{
   margin: 25px auto;
   font-weight: 600;

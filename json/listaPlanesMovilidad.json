@@ -1,0 +1,5 @@
+[
+  { "id": 1, "nombre": "Robo Básico", "factorRecargo": 1 },
+  { "id": 2, "nombre": "Robo y Daño", "factorRecargo": 1.15 },
+  { "id": 3, "nombre": "Todo Riesgo", "factorRecargo": 1.4 }
+]
