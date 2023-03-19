@@ -10,7 +10,10 @@ class Movilidad {
         let movEncontrada = data.find(valor => valor.marca.toLowerCase() === this.marca.toLowerCase());
         return movEncontrada.tasaBasica;
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        alertaError( `No fue posible obtener tasa: ${error}`)
+      })
 
     return tasa;
   }
@@ -19,15 +22,24 @@ class Movilidad {
 //FETCHS
 const listaMarcasMovilidad = fetch(`./json/listaMarcasMovilidad.json`)
   .then(response => response.json())
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError("No fue posible consultar la lista de marcas de movilidad")
+  })
 
 const listaPlanesMovilidad = fetch(`./json/listaPlanesMovilidad.json`)
   .then(response => response.json())
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError("No fue posible consultar la lista de planes de movilidad")
+  })
 
 const listaCoberturasMovilidad = fetch(`./json/listaCoberturasMovilidad.json`)
   .then(response => response.json())
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError("No fue posible consultar la lista de coberturas de movilidad")
+  })
 
 
 //SELECT MARCA
@@ -39,7 +51,10 @@ listaMarcasMovilidad
       selectMarca.innerHTML += `<option value="${marcaMov.id}">${marcaMov.marca}</option>`;
     });
   })
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError(`No fue posible completar el select con las marcas: ${error}}`)
+  })
 
 //SELECT SUMA
 const inputSumaMov = document.querySelector("#sumaMov");
@@ -64,9 +79,7 @@ async function cotizar(e) {
   let sumaMov = quitarFormatoMoneda(inputSumaMov.value);
 
   if (isNaN(sumaMov)) {
-    alertaInformativa(
-      "No es posible cotizar. Suma Asegurada debe ser numérica"
-    );
+    alertaInformativa("No es posible cotizar. Suma Asegurada debe ser numérica");
   } else {
     //Cotizamos
     let movilidad = new Movilidad(marcaMov, sumaMov);
@@ -115,7 +128,10 @@ async function cotizar(e) {
         encabezadoTabla.append(filaEncabezado);
         tabla.append(encabezadoTabla);
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        alertaError(`No fue posible completar el encabezado con los planes: ${error}}`)
+      })
 
     //CuerpoTabla
     let cuerpoTabla = document.createElement("tbody");
@@ -138,8 +154,10 @@ async function cotizar(e) {
               fila.append(colummaPlan);
             });
           })
-          .then()
-          .catch(error => console.error(error));
+          .catch(error => {
+            console.error(error);
+            alertaError(`No fue posible completar las coberturas por plan: ${error}}`);
+          })
 
         cuerpoTabla.append(fila);
       });
@@ -162,7 +180,10 @@ async function cotizar(e) {
             filaBoton.innerHTML += `<td><button id="btnContratar${plan.id}">Contratar</button></td>`;
           });
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+          alertaError(`No fue posible completar la fila costo y boton: ${error}}`)
+        })
 
       //Agregamos elementos al HTML
       cuerpoTabla.append(filaCosto);
@@ -184,11 +205,18 @@ async function cotizar(e) {
             );
           });
         })
-        .catch(error => console.log(error));
+        .catch(error => {
+          console.error(error);
+          alertaError(`No fue posible agregar evento a boton contratar: ${error}}`)
+        })
 
       //ViewPort hacia Seccion Planes
       let positionDivCotizacion = div.getBoundingClientRect();
       window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
+    })
+    .catch(error => {
+      console.error(error);
+      alertaError(`No fue posible renderizar el cuerpo de la tabla: ${error}}`)
     });
 
     function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {

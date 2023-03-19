@@ -17,7 +17,6 @@ function quitarFormatoMoneda(valor) {
 
 function alertaIngresoCarrito() {
   iziToast.success({
-    // title: 'OK',
     timeout: 3000,
     pauseOnHover: false,
     progressBar: false,
@@ -28,7 +27,6 @@ function alertaIngresoCarrito() {
 
 function alertaItemCarritoEliminado() {
   iziToast.info({
-    // title: "OK",
     icon: `bi bi-trash3`,
     backgroundColor: "#d78989",
     timeout: 3000,
@@ -41,13 +39,24 @@ function alertaItemCarritoEliminado() {
 
 function alertaInformativa(message){
   iziToast.warning({
-    // title: 'Caution',
     timeout: 3000,
     pauseOnHover: false,
     progressBar: false,
     transitionIn: "fadeInRight",
     position: "topLeft",
     message,
+});
+}
+
+function alertaError(messageError){
+  iziToast.error({
+    title: 'Error',
+    timeout: 3000,
+    pauseOnHover: false,
+    progressBar: false,
+    transitionIn: "fadeInLeft",
+    position: "bottomLeft",
+    message: messageError,
 });
 }
 

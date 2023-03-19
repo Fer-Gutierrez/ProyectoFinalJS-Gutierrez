@@ -13,7 +13,10 @@ class Electronica {
       let familiaEncontrada = data.find(valor => valor.familiaEq.toLowerCase() === this.familiaEq.toLowerCase())
       return familiaEncontrada.tasaBasica
       })
-      .catch(error => console.log(error));
+      .catch(error => {
+        console.error(error);
+        alertaError(`No fue posible obtener tasa: ${error}}`)
+      })
     
     return tasa;
   }
@@ -22,15 +25,24 @@ class Electronica {
 //FETCHS
 const listaFamiliasEquipos = fetch(`./json/listaFamiliasEquipos.json`)
   .then(response => response.json())
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError(`No fue posible obtener familias de equipos: ${error}}`)
+  })
 
 const listaPlanesElectronica = fetch(`./json/listaPlanesElectronica.json`)
   .then(response => response.json())
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError(`No fue posible obtener planes de electronica: ${error}}`)
+  })
 
   const listaCoberturasElectronica = fetch(`./json/listaCoberturasElectronica.json`)
     .then(response => response.json())
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      alertaError(`No fue posible obtener coberturas de electronica: ${error}}`)
+    })
 
 //SELECT FAMILIA
 const selectFamilia = document.querySelector("#familiaEq");
@@ -38,7 +50,10 @@ selectFamilia.innerHTML = `<option selected="true" disabled="disabled">Seleccion
 listaFamiliasEquipos.then(data =>{
   data.forEach(familia => selectFamilia.innerHTML += `<option value="${familia.id}">${familia.familiaEq}</option>`)
 })
-.catch(error => console.error(error))
+.catch(error => {
+  console.error(error);
+  alertaError(`No fue posible completar el select con las familias de equipos: ${error}}`)
+})
 
 //SELECT SUMA
 const inputSumaEq = document.querySelector("#sumaEq");
@@ -117,7 +132,10 @@ async function cotizar(e) {
           (filaEncabezado.innerHTML += `<th scope="col">${plan.nombre}</th>`)
       );
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      alertaError(`No fue posible completar el encabezado de taba con los planes: ${error}}`)
+    })
     encabezadoTabla.append(filaEncabezado);
     tabla.append(encabezadoTabla);
 
@@ -144,7 +162,10 @@ async function cotizar(e) {
             fila.append(colummaPlan);
           });
         })
-        .catch(error => console.error(error));
+        .catch(error => {
+          console.error(error);
+          alertaError(`No fue posible completar las coberturas con los planes: ${error}}`)
+        })
         
         cuerpoTabla.append(fila);
       });
@@ -168,7 +189,10 @@ async function cotizar(e) {
           filaBoton.innerHTML += `<td><button id="btnContratar${plan.id}">Contratar</button></td>`;
         });
       })
-      .catch(error => console.error(error))
+      .catch(error => {
+        console.error(error);
+        alertaError(`No fue posible completar la fila costo y boton contratar: ${error}}`)
+      })
 
       //Agregamos elementos al HTML
       cuerpoTabla.append(filaCosto);
@@ -189,14 +213,20 @@ async function cotizar(e) {
           );
         });
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        alertaError(`No fue posible agregar evento al boton contratar: ${error}}`)
+      })
 
       //ViewPort hacia Seccion Planes
       let positionDivCotizacion = div.getBoundingClientRect();
       window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
 
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      alertaError(`No fue posible renderizar la tabla: ${error}}`)
+    })
     
     function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {
       let cotizacion = new Cotizacion(

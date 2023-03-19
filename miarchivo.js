@@ -19,11 +19,17 @@ class Vehiculo {
 //FETCHS
 const listaPlanes = fetch(`./json/listaPlanesAutomotores.json`)
   .then(response => response.json())
-  .catch(error => console.error(error));
+  .catch(error => {
+    console.error(error);
+    alertaError("No fue posible consultar la lista de planes")
+  });
 
 const listaCoberturas = fetch(`./json/listaCoberturasAutomotores.json`)
   .then(response => response.json())
-  .catch(error => console.error(error))
+  .catch(error => {
+    console.error(error);
+    alertaError("No fue posible consultar la lista de coberturas")
+  })
 
 //FUNCIONES
 async function obtenerMarcas() {
@@ -45,6 +51,7 @@ async function obtenerMarcas() {
     });
   } catch (error) {
     console.log(error);
+    alertaError(`No fue posible obtener marcas: ${error}`);
   }
 }
 async function obtenerModelos(id, marca, anio) {
@@ -69,7 +76,7 @@ async function obtenerModelos(id, marca, anio) {
     }
   } catch (error) {
     console.log(error);
-    
+    alertaError(`No fue posible obtener modelos: ${error}`);
   }
 }
 function verificarAnio(){
@@ -191,7 +198,10 @@ function cotizar(e) {
           (filaEncabezado.innerHTML += `<th scope="col">${plan.nombre}</th>`)
       );
     })
-    .catch(error => console.error(error));
+    .catch(error => {
+      console.error(error);
+      alertaError(`Imposible rellnar encabezado con planes: ${error}`);
+    });
     encabezadoTabla.append(filaEncabezado);
     tabla.append(encabezadoTabla);
 
@@ -217,7 +227,10 @@ function cotizar(e) {
             fila.append(colummaPlan);
           });
         })
-        .catch(error=> console.error(error))
+        .catch(error => {
+          console.error(error);
+          alertaError(`Imposible rellnar coberturas con planes: ${error}`);
+        });
 
         cuerpoTabla.append(fila);
       });
@@ -241,7 +254,10 @@ function cotizar(e) {
           filaBoton.innerHTML += `<td><button id="btnContratar${plan.id}">Contratar</button></td>`;
         });
       })
-      .catch(error => console.error(error));
+      .catch(error => {
+        console.error(error);
+        alertaError(`Imposible rellnar fila costo y fila boton: ${error}`);
+      });
 
       //Agregamos elementos al HTML
       cuerpoTabla.append(filaCosto);
@@ -263,13 +279,19 @@ function cotizar(e) {
           );
         });
       })
-      .catch(error => console.error(error))
+      .catch(error => {
+        console.error(error);
+        alertaError(`Imposible agregar evento al boton contratar: ${error}`);
+      });
 
        //ViewPort hacia Seccion Planes
       let positionDivCotizacion = div.getBoundingClientRect();
       window.scrollTo(0, window.scrollY + positionDivCotizacion.top - 50);
     })
-    .catch(error => console.error(error))
+    .catch(error => {
+      console.error(error);
+      alertaError(`Imposible renderizar cuerpo de tabla: ${error}`);
+    });
     
     function agregarCotizacion(idPlan, nombrePlan, recargoPlan) {
       let cotizacion = new Cotizacion(
@@ -280,8 +302,6 @@ function cotizar(e) {
         Math.ceil(costoSeguro * recargoPlan)
       );
       cotizacion.agregarLS();
-    }
-
-   
+    }   
   }
 }
