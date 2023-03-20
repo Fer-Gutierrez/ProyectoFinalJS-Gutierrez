@@ -142,6 +142,8 @@ function cotizar(e) {
 
   if (isNaN(sumaVh) || isNaN(anioVh)) {
     alertaInformativa("No es posible cotizar. Suma Asegurada y Año ingresados deben ser numéricos");
+  } else if(selectMarca.options[selectMarca.selectedIndex].value === "-1" || selectModelo.options[selectModelo.selectedIndex].value === "-1"){
+    alertaInformativa("Debe seleccionar una marca y modelo para cotizar.")
   } else {
     //Costo Seguro:
     let vehiculo = new Vehiculo(marcaVh, modeloVh, anioVh, sumaVh, tieneGasVh);
